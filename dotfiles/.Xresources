@@ -1,46 +1,65 @@
-URxvt.font: xft:Terminus:size=14
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+
+! Font
+URxvt.font: xft:monospace:size=14
+
+! Scrollbar
 URxvt.scrollBar: false
 
+! Plugins
 URxvt.perl-ext-common: clipboard
-URxvt.keysym.M-c: perl:clipboard:copy
-URxvt.keysym.M-v: perl:clipboard:paste
+
+! Bindings
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
 URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
-URxvt.clipboard.autocopy: true
-URxvt.clipboard.copycmd: xsel -ib
-URxvt.clipboard.pastecmd: xsel -ob
 
-! Base16 Default
-! Scheme: Chris Kempson (http://chriskempson.com)
+! Theme
+! Base16 Solarized
+! Scheme: Ethan Schoonover (http://ethanschoonover.com/solarized)
 
-URxvt*background:                     #181818
-URxvt*foreground:                     #d8d8d8
-URxvt*cursorColor:                    #d8d8d8
+#define base00 #002b36
+#define base01 #073642
+#define base02 #586e75
+#define base03 #657b83
+#define base04 #839496
+#define base05 #93a1a1
+#define base06 #eee8d5
+#define base07 #fdf6e3
+#define base08 #dc322f
+#define base09 #cb4b16
+#define base0A #b58900
+#define base0B #859900
+#define base0C #2aa198
+#define base0D #268bd2
+#define base0E #6c71c4
+#define base0F #d33682
 
-URxvt*scrollColor:                    #d8d8d8
-URxvt*highlightColor:                 #383838
-URxvt*highlightTextColor:             #b8b8b8
+*foreground:   base05
+*background:   base00
+*cursorColor:  base05
 
-URxvt*color0:                         #181818
-URxvt*color1:                         #ab4642
-URxvt*color2:                         #a1b56c
-URxvt*color3:                         #f7ca88
-URxvt*color4:                         #7cafc2
-URxvt*color5:                         #ba8baf
-URxvt*color6:                         #86c1b9
-URxvt*color7:                         #d8d8d8
-URxvt*color8:                         #585858
-URxvt*color9:                         #ab4642
-URxvt*color10:                        #a1b56c
-URxvt*color11:                        #f7ca88
-URxvt*color12:                        #7cafc2
-URxvt*color13:                        #ba8baf
-URxvt*color14:                        #86c1b9
-URxvt*color15:                        #f8f8f8
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
 
-URxvt*color16:                        #dc9656
-URxvt*color17:                        #a16946
-URxvt*color18:                        #282828
-URxvt*color19:                        #383838
-URxvt*color20:                        #b8b8b8
-URxvt*color21:                        #e8e8e8
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07
 
