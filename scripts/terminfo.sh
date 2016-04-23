@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "$(tput setaf 2)----------------------------------"
+echo "$(tput setaf 1)xx  x   xxxx   xx     xx    xxxxx "
+echo "$(tput setaf 1)xx x     xx    xxx   xxx   xx   xx"
+echo "$(tput setaf 1)xxx      xx    xx x x xx   xx   xx"
+echo "$(tput setaf 1)xx x     xx    xx  x  xx   xx   xx"
+echo "$(tput setaf 1)xx  x   xxxx   xx     xx    xxxxx "
+echo "$(tput setaf 2)----------------------------------"
+echo "$(tput setaf 6)$(whoami) on $(hostname)"
+echo "$(tput setaf 6)Kernel::$(uname -r)"
+echo "$(tput setaf 2)----------------------------------"
