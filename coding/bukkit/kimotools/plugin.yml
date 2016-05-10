@@ -1,0 +1,13 @@
+name: KimoTools
+version: 0.0.1337
+main: me.mrkimo.kimotools.kimotools
+author: MrKimo
+website: None
+commands:
+     gethealth:
+          description: getHealth of a yourself or others
+          usage: /<command> [Player]
+          permission: kimotools.gethealth
+     serverteam:
+          description: display serverteam
+          usage: /serverteam
