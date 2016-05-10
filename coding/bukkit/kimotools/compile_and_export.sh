@@ -1,9 +1,9 @@
 #!/bin/sh
 echo Compiling...
-javac me/mrkimo/kimotools/kimotools.java -cp me/mrkimo/kimotools/bukkit-1.9.2-R0.1-SNAPSHOT-shaded.jar -Xlint:deprecation
+javac /home/imo/coding/bukkit/kimotools/me/mrkimo/kimotools/kimotools.java -cp me/mrkimo/kimotools/bukkit-1.9.2-R0.1-SNAPSHOT-shaded.jar -Xlint:deprecation
 echo Packing...
-jar cvf KimoTools.jar me/mrkimo/kimotools/kimotools.class
-jar uvf KimoTools.jar ./plugin.yml
+jar cvf /home/imo/coding/bukkit/kimotools/KimoTools.jar /home/imo/coding/bukkit/kimotools/me/mrkimo/kimotools/kimotools.class
+jar uvf /home/imo/coding/bukkit/kimotools/KimoTools.jar /home/imo/coding/bukkit/kimotools/plugin.yml
 echo Exporting to Testserver...
-sudo cp KimoTools.jar /srv/craftbukkit/plugins/KimoTools.jar
+sudo cp /home/imo/coding/bukkit/kimotools/KimoTools.jar /srv/craftbukkit/plugins/KimoTools.jar
 echo DONE!
