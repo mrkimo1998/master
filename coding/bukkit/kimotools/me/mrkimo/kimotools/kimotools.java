@@ -67,13 +67,33 @@ public class kimotools extends JavaPlugin {
 					} else {
 						return false;
 					}
-				} else {
-					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.RED + "ERROR: Keine Berechtigung!");
-					return true;
-				}
+				} else { p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.RED + "ERROR: Keine Berechtigung!"); return true; }
 			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
-		
 		}
+		if(cmd.getName().equalsIgnoreCase("aflame")){
+			if(p != null){
+				if(p.hasPermission("kimotools.aflame")){
+					if(args.length > 1){ p.sendMessage(ChatColor.RED + "ERROR: Zu viele Argumente!"); return false;}
+					else if(args.length == 0){
+						p.setFireTicks(10000);
+						p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Du hast dich selbst in Brand gesteckt! #FIRECHALLENGE");
+						return true;
+					}
+					else if(args.length == 1){
+						for(Player curp : this.getServer().getOnlinePlayers()){
+							if(curp.getName().equalsIgnoreCase(args[0])){
+								curp.setFireTicks(10000);
+								p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Der Spieler " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " wurde in Brand gesetzt.");
+								curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Der Spieler " + ChatColor.AQUA + p.getName() + ChatColor.GREEN + " hat dich in Brand gesetzt.");
+								return true;
+							}
+						} 
+						p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.RED + " ERROR: Spieler offline!");
+						return true;
+					}
+				} else { p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.RED + "ERROR: Keine Berechtigung!"); return true; }
+			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
+		}		
 		return false;
 	}
 	private void loadConfig(){

@@ -11,3 +11,12 @@ commands:
      serverteam:
           description: display serverteam
           usage: /serverteam
+     aflame:
+          description: set a player aflame
+          usage: /<command> [Player]
+          permission: kimotools.aflame
+permissions:
+  kimotools.gethealth:
+    description: gethealth command
+  kimotools.aflame:
+    description: aflame command
