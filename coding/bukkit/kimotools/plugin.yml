@@ -15,8 +15,21 @@ commands:
           description: set a player aflame
           usage: /<command> [Player]
           permission: kimotools.aflame
+     beam:
+          description: teleport
+          usage: /<command> <Player> [Player]
+          permission: kimotools.beam
+          permission: kimotools.beam.others
 permissions:
   kimotools.gethealth:
     description: gethealth command
+    default: no op
   kimotools.aflame:
     description: aflame command
+    default: op
+  kimotools.beam:
+    description: beam command
+    default: no op
+  kimotools.beam.others:
+    description: beam others command
+    default: op
