@@ -62,12 +62,12 @@ public class kimotools extends JavaPlugin {
 								return true;
 							}
 						} 
-						p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.RED + " ERROR: Spieler offline!");
+						p.sendMessage(ChatColor.RED + " ERROR: Spieler offline!");
 						return true;
 					} else {
 						return false;
 					}
-				} else { p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.RED + "ERROR: Keine Berechtigung!"); return true; }
+				} else { p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true; }
 			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
 		}
 		//aflame command
@@ -89,10 +89,10 @@ public class kimotools extends JavaPlugin {
 								return true;
 							}
 						} 
-						p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.RED + " ERROR: Spieler offline!");
+						p.sendMessage(ChatColor.RED + " ERROR: Spieler offline!");
 						return true;
 					}
-				} else { p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.RED + "ERROR: Keine Berechtigung!"); return true; }
+				} else { p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true; }
 			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
 		}
 		//beam command
@@ -121,7 +121,7 @@ public class kimotools extends JavaPlugin {
 								for(Player target2 : this.getServer().getOnlinePlayers()){
 									if(target2.getName().equalsIgnoreCase(args[0])){
 										target1.teleport(target2.getLocation());
-										target1.sendMessage(ChatColor.GREEN + " Sie wurden zu " + ChatColor.AQUA + target2.getName() + ChatColor.GREEN + " gebeamt!");
+										target1.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie wurden zu " + ChatColor.AQUA + target2.getName() + ChatColor.GREEN + " gebeamt!");
 										target2.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.AQUA + " " + target1.getName() + ChatColor.GREEN + " wurde zu ihnen gebeamt");
 										return true;
 									}
