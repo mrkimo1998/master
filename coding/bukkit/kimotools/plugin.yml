@@ -23,13 +23,9 @@ commands:
 permissions:
   kimotools.gethealth:
     description: gethealth command
-    default: no op
   kimotools.aflame:
     description: aflame command
-    default: op
   kimotools.beam:
     description: beam command
-    default: no op
   kimotools.beam.others:
     description: beam others command
-    default: op
