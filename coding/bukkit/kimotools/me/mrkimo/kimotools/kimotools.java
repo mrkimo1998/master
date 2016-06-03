@@ -121,8 +121,8 @@ public class kimotools extends JavaPlugin {
 								for(Player target2 : this.getServer().getOnlinePlayers()){
 									if(target2.getName().equalsIgnoreCase(args[0])){
 										target1.teleport(target2.getLocation());
-										//target1.sendMessage(ChatColor.GREEN + " Sie wurden zu " ChatColor.AQUA + target2.getName() + ChatColor.GREEN + " gebeamt!");
-										//target2.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.Aqua + " " + target1.getName() + ChatColor.GREEN + " wurde zu ihnen gebeamt");
+										target1.sendMessage(ChatColor.GREEN + " Sie wurden zu " + ChatColor.AQUA + target2.getName() + ChatColor.GREEN + " gebeamt!");
+										target2.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.AQUA + " " + target1.getName() + ChatColor.GREEN + " wurde zu ihnen gebeamt");
 										return true;
 									}
 								}
