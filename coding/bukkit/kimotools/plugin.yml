@@ -20,6 +20,22 @@ commands:
           usage: /<command> <Player> [Player]
           permission: kimotools.beam
           permission: kimotools.beam.others
+     warp:
+          description: warp
+          usage: /<command> <warp>
+          permission: kimotools.warp
+     setwarp:
+          description: setwarp
+          usage: /<command> <warpname>
+          permission: kimotools.warp.mod
+     delwarp:
+          description: delwarp
+          usage: /<command> <warpname>
+          permission: kimotools.warp.mod
+     warplist:
+          description: list warps
+          usage: /<command>
+          permission: kimotools.warp
 permissions:
   kimotools.gethealth:
     description: gethealth command
@@ -29,3 +45,7 @@ permissions:
     description: beam command
   kimotools.beam.others:
     description: beam others command
+  kimotools.warp:
+    description: warp / warplist command
+  kimotools.warp.mod:
+    description: modify warps
