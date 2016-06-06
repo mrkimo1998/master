@@ -150,6 +150,23 @@ public class kimotools extends JavaPlugin {
 				} else { p.sendMessage(ChatColor.RED + "ERROR: Zu viele Argumente!"); return false;}
 			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
 		}
+		//beam2me command
+		else if(cmd.getName().equalsIgnoreCase("beam2me")){
+			if(p == null) { System.out.println("[KimoTools] Not a console command"); return true; }
+			if(args.length != 1) { p.sendMessage(ChatColor.RED + "ERROR Es muss ein Argument angegeben werden!"); return false; }
+			if(!p.hasPermission("kimotools.beam.2me")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+			for(Player curp : this.getServer().getOnlinePlayers()){
+				if(curp.getName().equalsIgnoreCase(args[0])){
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " dir.");
+					curp.teleport(p.getLocation());
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beam erfolgreich!");
+					curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.AQUA + " " + p.getName() + ChatColor.GREEN + " hat dich zu ihm gebeamt!");
+					return true;
+				}
+			}
+			p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
+			return true;
+		}
 		//warp command
 		else if(cmd.getName().equalsIgnoreCase("warp")){
 			if(p != null){
