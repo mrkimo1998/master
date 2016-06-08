@@ -157,7 +157,7 @@ public class kimotools extends JavaPlugin {
 			if(!p.hasPermission("kimotools.beam.2me")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
 			for(Player curp : this.getServer().getOnlinePlayers()){
 				if(curp.getName().equalsIgnoreCase(args[0])){
-					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " dir.");
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " zu dir.");
 					curp.teleport(p.getLocation());
 					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beam erfolgreich!");
 					curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.AQUA + " " + p.getName() + ChatColor.GREEN + " hat dich zu ihm gebeamt!");

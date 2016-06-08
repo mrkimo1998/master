@@ -20,6 +20,10 @@ commands:
           usage: /<command> <Player> [Player]
           permission: kimotools.beam
           permission: kimotools.beam.others
+     beam2me:
+          description: teleport here
+          usage: /<command> <Player>
+          permission: kimotools.beam.2me
      warp:
           description: warp
           usage: /<command> <warp>
@@ -45,6 +49,8 @@ permissions:
     description: beam command
   kimotools.beam.others:
     description: beam others command
+  kimotools.beam.2me:
+    description: beam2me command
   kimotools.warp:
     description: warp / warplist command
   kimotools.warp.mod:
