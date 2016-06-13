@@ -169,18 +169,14 @@ public class kimotools extends JavaPlugin {
 		}
 		//warp command
 		else if(cmd.getName().equalsIgnoreCase("warp")){
-			if(p != null){
-				if(args.length != 1){ p.sendMessage(ChatColor.RED + "ERROR: Es muss ein Argument angegeben werden!"); return false; }
-				else if (args.length == 1){
-					if(p.hasPermission("kimotools.warp")){
-						Location warpLoc = warpMgr.getWarp(args[0]);
-						if(warpLoc == null) { p.sendMessage(ChatColor.RED + "ERROR: Dieser Warp existiert nicht!"); return true;}
-						p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu Warp: " + ChatColor.AQUA + args[0]);
-						p.teleport(warpLoc);
-						p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie haben ihr Ziel erreicht!");
-					} else { p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true; }
-				}
-			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
+			if(p != null){ System.out.println("[KimoTools] Not a console command1"); return true;}
+			if(args.length != 1){ p.sendMessage(ChatColor.RED + "ERROR: Es muss ein Argument angegeben werden!"); return false; }
+			if(!p.hasPermission("kimotools.warp")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung! "); return true;}
+			Location warpLoc = warpMgr.getWarp(args[0]);
+			if(warpLoc == null) { p.sendMessage(ChatColor.RED + "ERROR: Dieser Warp existiert nicht!"); return true;}
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu Warp: " + ChatColor.AQUA + args[0]);
+			p.teleport(warpLoc);
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie haben ihr Ziel erreicht!");
 		}
 		//setwarp command
 		else if(cmd.getName().equalsIgnoreCase("setwarp")){
