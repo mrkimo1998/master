@@ -15,12 +15,15 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.event.player.PlayerLoginEvent;
-
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
 
 public class kimotools extends JavaPlugin implements Listener {
 	
 	WarpManager warpMgr;
+	final String path1 = "Configuration.serverteam";
+	final String path2 = "Configuration.owner";
 
 	@Override
 	public void onDisable() {
@@ -43,15 +46,12 @@ public class kimotools extends JavaPlugin implements Listener {
 	}
 	
 	@EventHandler
-	public void onLogin(PlayerLoginEvent event) {
-		String owner = this.getConfig().getString("Configuration.owner");
-		for(Player p : this.getServer().getOnlinePlayers()){
-			if(event.getPlayer().getName() == owner){
-				p.sendMessage(ChatColor.RED + "Der Servereigentümer " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.RED + " hat sich eingeloggt!");
-				continue;
-
-			}
-			p.sendMessage(ChatColor.GREEN + "Spieler " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.GREEN + " hat sich eingeloggt!");
+	public void onJoin(PlayerJoinEvent event) {
+		String owner = this.getConfig().getString(path2);
+		if(event.getPlayer().getName().equals(owner)){
+			event.setJoinMessage(ChatColor.RED + "Der Servereigentümer " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.RED + " hat sich eingeloggt!");
+		} else {
+			event.setJoinMessage(ChatColor.GREEN + "Spieler " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.GREEN + " hat sich eingeloggt!");
 		}
 	}
 
@@ -61,13 +61,13 @@ public class kimotools extends JavaPlugin implements Listener {
 			p = (Player)sender;
 		}
 		double health;
-		String Serverteam = this.getConfig().getString("Configuration.serverteam");
+		String serverteam = this.getConfig().getString(path1);
 			
 		//serverteam command
 		if(cmd.getName().equalsIgnoreCase("serverteam")){
 			if(p != null){
 				if(args.length == 0){
-					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Das Serverteam besteht aus " + ChatColor.RED + ChatColor.UNDERLINE + Serverteam + ChatColor.RESET + ChatColor.GREEN + ".");
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Das Serverteam besteht aus " + ChatColor.RED + ChatColor.UNDERLINE + serverteam + ChatColor.RESET + ChatColor.GREEN + ".");
 					return true;
 				} else {
 					return false;
@@ -232,8 +232,6 @@ public class kimotools extends JavaPlugin implements Listener {
 	}
 	private void loadConfig(){
 		System.out.println("[KimoTools] Config geladen!");
-		String path1 = "Configuration.serverteam";
-		String path2 = "Configuration.owner";
 		this.getConfig().addDefault(path1, "Player, Player, Player (Standard Meldung, bitte \u00e4ndern)");
 		this.getConfig().addDefault(path2, "MrKimo");
 		this.getConfig().options().copyDefaults(true);
