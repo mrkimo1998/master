@@ -15,15 +15,15 @@ commands:
           description: set a player aflame
           usage: /<command> [Player]
           permission: kimotools.aflame
-     beam:
+     tp:
           description: teleport
           usage: /<command> <Player> [Player]
-          permission: kimotools.beam
-          permission: kimotools.beam.others
-     beam2me:
+          permission: kimotools.tp
+          permission: kimotools.tp.others
+     tphere:
           description: teleport here
           usage: /<command> <Player>
-          permission: kimotools.beam.2me
+          permission: kimotools.tp.here
      warp:
           description: warp
           usage: /<command> <warp>
@@ -36,7 +36,7 @@ commands:
           description: delwarp
           usage: /<command> <warpname>
           permission: kimotools.warp.mod
-     warplist:
+     warps:
           description: list warps
           usage: /<command>
           permission: kimotools.warp

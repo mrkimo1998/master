@@ -48,6 +48,7 @@ public class kimotools extends JavaPlugin implements Listener {
 		for(Player p : this.getServer().getOnlinePlayers()){
 			if(event.getPlayer().getName() == owner){
 				p.sendMessage(ChatColor.RED + "Der Servereigentümer " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.RED + " hat sich eingeloggt!");
+				continue;
 
 			}
 			p.sendMessage(ChatColor.GREEN + "Spieler " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.GREEN + " hat sich eingeloggt!");
@@ -128,11 +129,11 @@ public class kimotools extends JavaPlugin implements Listener {
 			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
 		}
 		//beam command
-		else if(cmd.getName().equalsIgnoreCase("beam")) {
+		else if(cmd.getName().equalsIgnoreCase("tp")) {
 			if(p != null){
 				if(args.length == 0){ p.sendMessage(ChatColor.RED + "ERROR: Zu wenig Argumente!"); return false;}
 				else if (args.length == 1) {
-					if(p.hasPermission("kimotools.beam")){
+					if(p.hasPermission("kimotools.tp")){
 						for(Player curp : this.getServer().getOnlinePlayers()){
 							if(curp.getName().equalsIgnoreCase(args[0])){
 								p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu " + ChatColor.AQUA + curp.getName());
@@ -147,7 +148,7 @@ public class kimotools extends JavaPlugin implements Listener {
 					} else { p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
 				}
 				else if (args.length == 2) {
-					if(p.hasPermission("kimotools.beam.others")){
+					if(p.hasPermission("kimotools.tp.others")){
 						for(Player target1 : this.getServer().getOnlinePlayers()){
 							if(target1.getName().equalsIgnoreCase(args[0])){
 								for(Player target2 : this.getServer().getOnlinePlayers()){
@@ -167,10 +168,10 @@ public class kimotools extends JavaPlugin implements Listener {
 			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
 		}
 		//beam2me command
-		else if(cmd.getName().equalsIgnoreCase("beam2me")){
+		else if(cmd.getName().equalsIgnoreCase("tphere")){
 			if(p == null) { System.out.println("[KimoTools] Not a console command"); return true; }
 			if(args.length != 1) { p.sendMessage(ChatColor.RED + "ERROR Es muss ein Argument angegeben werden!"); return false; }
-			if(!p.hasPermission("kimotools.beam.2me")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+			if(!p.hasPermission("kimotools.tp.here")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
 			for(Player curp : this.getServer().getOnlinePlayers()){
 				if(curp.getName().equalsIgnoreCase(args[0])){
 					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " zu dir.");
@@ -213,7 +214,7 @@ public class kimotools extends JavaPlugin implements Listener {
 			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Warp: " + ChatColor.AQUA + args[0] + ChatColor.GREEN + " gelöscht!");
 		}
 		//warplist command
-		else if (cmd.getName().equalsIgnoreCase("warplist")){
+		else if (cmd.getName().equalsIgnoreCase("warps")){
 			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true;}
 			if(args.length != 0){ p.sendMessage(ChatColor.RED +  "ERROR: Es dürfen keine Argument angegeben werden!"); return false; }
 			if(!p.hasPermission("kimotools.warp")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
