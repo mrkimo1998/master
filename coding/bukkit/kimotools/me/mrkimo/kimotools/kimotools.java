@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-public class kimotools extends JavaPlugin {
+public class kimotools extends JavaPlugin implements Listener {
 	
 	WarpManager warpMgr;
 
@@ -31,13 +31,27 @@ public class kimotools extends JavaPlugin {
 		System.out.println("[KimoTools] Plugin wird geladen.");
 		//Config
 		loadConfig();
-		//warpmanager
+		//WarpManager
 		warpMgr = new WarpManager("warps.hashmap", this);
+		//Listener
+		getServer().getPluginManager().registerEvents(this, this);
 		System.out.println("[KimoTools] Geladen!");
 		System.out.println("[KimoTools] Plugin by MrKimo.");
 		System.out.println("==================================");
 	}
 	
+	@EventHandler
+	public void onLogin(PlayerLoginEvent event) {
+		String owner = this.getConfig().getString("Configuration.owner");
+		for(Player p : this.getServer().getOnlinePlayers()){
+			if(event.getPlayer().getName() == owner){
+				p.sendMessage(ChatColor.RED + "Der Servereigentümer " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.RED + " hat sich eingeloggt!");
+
+			}
+			p.sendMessage(ChatColor.GREEN + "Spieler " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.GREEN + " hat sich eingeloggt!");
+		}
+	}
+
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
 		Player p = null;
 		if(sender instanceof Player){
@@ -45,7 +59,7 @@ public class kimotools extends JavaPlugin {
 		}
 		double health;
 		String Serverteam = this.getConfig().getString("Configuration.serverteam");
-		
+			
 		//serverteam command
 		if(cmd.getName().equalsIgnoreCase("serverteam")){
 			if(p != null){
@@ -216,7 +230,9 @@ public class kimotools extends JavaPlugin {
 	private void loadConfig(){
 		System.out.println("[KimoTools] Config geladen!");
 		String path1 = "Configuration.serverteam";
+		String path2 = "Configuration.owner";
 		this.getConfig().addDefault(path1, "Player, Player, Player (Standard Meldung, bitte \u00e4ndern)");
+		this.getConfig().addDefault(path2, "MrKimo");
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
 	}
