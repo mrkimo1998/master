@@ -24,6 +24,10 @@ commands:
           description: teleport here
           usage: /<command> <Player>
           permission: kimotools.tp.here
+     s:
+          description: teleport here
+          usage: /<command> <Player>
+          permission: kimotools.tp.here
      warp:
           description: warp
           usage: /<command> <warp>

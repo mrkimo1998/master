@@ -156,7 +156,7 @@ public class kimotools extends JavaPlugin implements Listener {
 			} else { System.out.println("[KimoTools] Not a console command!"); return true; }
 		}
 		//beam2me command
-		if(cmd.getName().equalsIgnoreCase("tphere")){
+		if(cmd.getName().equalsIgnoreCase("tphere") || cmd.getName().equalsIgnoreCase("s")){
 			if(p == null) { System.out.println("[KimoTools] Not a console command"); return true; }
 			if(args.length != 1) { p.sendMessage(ChatColor.RED + "ERROR Es muss ein Argument angegeben werden!"); return false; }
 			if(!p.hasPermission("kimotools.tp.here")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
