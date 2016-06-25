@@ -1,8 +1,6 @@
-package de.mrkimo.lottogen;
-
 import java.util.Random;
 
-public class Main {
+public class main {
 
 	public static void main(String[] args) {
 		short x;
