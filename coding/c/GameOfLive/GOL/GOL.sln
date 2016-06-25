@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2857B73E-F847-4B02-9238-064979017E93}") = "GOL", "GOL\GOL.cproj", "{EB21CAA9-708B-4B55-95B2-EB40DE17998D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB21CAA9-708B-4B55-95B2-EB40DE17998D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB21CAA9-708B-4B55-95B2-EB40DE17998D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB21CAA9-708B-4B55-95B2-EB40DE17998D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB21CAA9-708B-4B55-95B2-EB40DE17998D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
