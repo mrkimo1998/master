@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -22,6 +23,7 @@ import org.bukkit.event.EventHandler;
 public class kimotools extends JavaPlugin implements Listener {
 	
 	WarpManager warpMgr;
+	HomeManager homeMgr;
 	final String path1 = "Configuration.serverteam";
 	final String path2 = "Configuration.owner";
 
@@ -38,6 +40,7 @@ public class kimotools extends JavaPlugin implements Listener {
 		loadConfig();
 		//WarpManager
 		warpMgr = new WarpManager("warps.hashmap", this);
+		homeMgr = new HomeManager("homes.hashmap", this);
 		//Listener
 		getServer().getPluginManager().registerEvents(this, this);
 		System.out.println("[KimoTools] Geladen!");
@@ -57,9 +60,10 @@ public class kimotools extends JavaPlugin implements Listener {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
 		Player p = null;
-		if(sender instanceof Player){
-			p = (Player)sender;
-		}
+		if(sender instanceof Player){ p = (Player)sender; }
+
+		UUID uuid = p.getUniqueId();
+
 		double health;
 		String serverteam = this.getConfig().getString(path1);
 			
@@ -214,6 +218,54 @@ public class kimotools extends JavaPlugin implements Listener {
 				}
 			}
 			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Warps: " + ChatColor.AQUA + str_warps);
+		}
+		//home command
+		if(cmd.getName().equalsIgnoreCase("home")){
+			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+			if(args.length != 1){ p.sendMessage(ChatColor.RED + "ERROR: Es muss ein Argument angegeben werden!"); return false; }
+			if(!p.hasPermission("kimotools.home")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung! "); return true;}
+			Location homeLoc = homeMgr.getHome(uuid, args[0]);
+			if(homeLoc == null) { p.sendMessage(ChatColor.RED + "ERROR: Dieses Zuhause existiert nicht!"); return true;}
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu Zuhause: " + ChatColor.AQUA + args[0]);
+			p.teleport(homeLoc);
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie haben ihr Ziel erreicht!");
+		}
+		//sethome command
+		if(cmd.getName().equalsIgnoreCase("sethome")){
+			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+			if(args.length != 1){ p.sendMessage(ChatColor.RED +  "ERROR: Es muss ein Argument angegeben werden!"); return false; }
+			if(!p.hasPermission("kimotools.home")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Setze Zuhause...");
+			if(homeMgr.addHome(uuid, args[0], p.getLocation()) == 0){
+				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Zuhause: " + ChatColor.AQUA + args[0] + ChatColor.GREEN + " gesetzt!");
+			} else { p.sendMessage(ChatColor.RED + "ERROR: Zuhause existiert bereits oder sonstiger Fehler!"); return true;}
+		}
+		//delhome command
+		if(cmd.getName().equalsIgnoreCase("delhome")){
+			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+			if(args.length != 1){ p.sendMessage(ChatColor.RED +  "ERROR: Es muss ein Argument angegeben werden!"); return false; }
+			if(!p.hasPermission("kimotools.home")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+			homeMgr.removeHome(uuid, args[0]);
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Zuhause: " + ChatColor.AQUA + args[0] + ChatColor.GREEN + " gelöscht!");
+		}
+		//homelist command
+		if (cmd.getName().equalsIgnoreCase("homes")){
+			String str_uuid = uuid.toString();
+			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+			if(args.length != 0){ p.sendMessage(ChatColor.RED +  "ERROR: Es dürfen keine Argument angegeben werden!"); return false; }
+			if(!p.hasPermission("kimotools.home")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+			String str_homes = "";
+			Object[] obj_homes = homeMgr.getHomeList();
+			for(int i = 0; i < obj_homes.length; i++){
+				str_homes += String.valueOf(obj_homes[i]);
+				if(!(i == obj_homes.length - 1)){
+					str_homes += ", ";
+				}
+			}
+			if(str_homes.contains(str_uuid)) {
+					str_homes = str_homes.replace(str_uuid,"");
+			}
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Ihre R\u00fcckzugsorte: " + ChatColor.AQUA + str_homes);
 		}
 		return true;
 	}

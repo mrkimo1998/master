@@ -44,6 +44,22 @@ commands:
           description: list warps
           usage: /<command>
           permission: kimotools.warp
+     home:
+          description: home
+          usage: /<command> <home>
+          permission: kimotools.home
+     sethome:
+          description: sethome
+          usage: /<command> <homename>
+          permission: kimotools.home
+     delhome:
+          description: delhome
+          usage: /<command> <homename>
+          permission: kimotools.home
+     homes:
+          description: list homes
+          usage: /<command>
+          permission: kimotools.home
 permissions:
   kimotools.gethealth:
     description: gethealth command
@@ -59,3 +75,5 @@ permissions:
     description: warp / warplist command
   kimotools.warp.mod:
     description: modify warps
+  kimotools.home:
+    description: home commands
