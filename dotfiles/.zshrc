@@ -82,4 +82,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias twitch="twitch-curses"
+alias clear="/home/imo/scripts/terminfo.sh"
+alias "cd.."="cd .."
+alias "web"="elinks"
+alias "vsc"="visual-studio-code"
 /home/imo/scripts/terminfo.sh
