@@ -65,11 +65,11 @@ permissions:
     description: gethealth command
   kimotools.aflame:
     description: aflame command
-  kimotools.beam:
+  kimotools.tp:
     description: beam command
-  kimotools.beam.others:
+  kimotools.tp.others:
     description: beam others command
-  kimotools.beam.2me:
+  kimotools.tp.here:
     description: beam2me command
   kimotools.warp:
     description: warp / warplist command

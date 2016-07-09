@@ -19,6 +19,7 @@ import org.bukkit.Location;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
+import org.bukkit.Sound;
 
 public class kimotools extends JavaPlugin implements Listener {
 	
@@ -129,6 +130,8 @@ public class kimotools extends JavaPlugin implements Listener {
 						for(Player curp : this.getServer().getOnlinePlayers()){
 							if(curp.getName().equalsIgnoreCase(args[0])){
 								p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu " + ChatColor.AQUA + curp.getName());
+								p.playSound(curp.getLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
+								curp.playSound(curp.getLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
 								p.teleport(curp.getLocation());
 								p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie haben ihr Ziel erreicht!");
 								curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.AQUA + " " + p.getName() + ChatColor.GREEN + " hat sich zu ihnen gebeamt!");
@@ -146,6 +149,8 @@ public class kimotools extends JavaPlugin implements Listener {
 								for(Player target2 : this.getServer().getOnlinePlayers()){
 									if(target2.getName().equalsIgnoreCase(args[1])){
 										target1.teleport(target2.getLocation());
+										target1.playSound(target2.getLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
+										target2.playSound(target2.getLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
 										target1.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie wurden zu " + ChatColor.AQUA + target2.getName() + ChatColor.GREEN + " gebeamt!");
 										target2.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.AQUA + " " + target1.getName() + ChatColor.GREEN + " wurde zu ihnen gebeamt");
 										return true;
@@ -168,6 +173,8 @@ public class kimotools extends JavaPlugin implements Listener {
 				if(curp.getName().equalsIgnoreCase(args[0])){
 					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " zu dir.");
 					curp.teleport(p.getLocation());
+					curp.playSound(p.getLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
+					p.playSound(p.getLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
 					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beam erfolgreich!");
 					curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.AQUA + " " + p.getName() + ChatColor.GREEN + " hat dich zu ihm gebeamt!");
 					return true;
@@ -184,6 +191,7 @@ public class kimotools extends JavaPlugin implements Listener {
 			if(warpLoc == null) { p.sendMessage(ChatColor.RED + "ERROR: Dieser Warp existiert nicht!"); return true;}
 			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu Warp: " + ChatColor.AQUA + args[0]);
 			p.teleport(warpLoc);
+			p.playSound(warpLoc, (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
 			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie haben ihr Ziel erreicht!");
 		}
 		//setwarp command
@@ -228,6 +236,7 @@ public class kimotools extends JavaPlugin implements Listener {
 			if(homeLoc == null) { p.sendMessage(ChatColor.RED + "ERROR: Dieses Zuhause existiert nicht!"); return true;}
 			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu Zuhause: " + ChatColor.AQUA + args[0]);
 			p.teleport(homeLoc);
+			p.playSound(homeLoc, (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
 			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie haben ihr Ziel erreicht!");
 		}
 		//sethome command
