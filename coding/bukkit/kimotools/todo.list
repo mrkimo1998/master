@@ -1,3 +1,28 @@
--sounds (for teleport etc)
--homes (HOMEMANAGER)
 -kick
+-ban
+-more admin tools
+-whois (IP, UUID ...)
+-whereis (Loc)
+-multiworld???
+-random tp
+
+
+
+
+
+
+
+
+-blockmanipulation(presets)
+-dynamic permissions
+-IRC, Jabber, Chats
+-- bring https://github.com/hef/IRCTransport back from the graveyard (5yrs old)!!!
+-elinks like browser
+
+
+
+-mods?
+
+-spectation
+--with tools (godlike)
+

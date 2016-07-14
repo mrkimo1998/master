@@ -266,9 +266,11 @@ public class kimotools extends JavaPlugin implements Listener {
 			String str_homes = "";
 			Object[] obj_homes = homeMgr.getHomeList();
 			for(int i = 0; i < obj_homes.length; i++){
-				str_homes += String.valueOf(obj_homes[i]);
-				if(!(i == obj_homes.length - 1)){
-					str_homes += ", ";
+				if(String.valueOf(obj_homes[i]).contains(str_uuid)){
+					str_homes += String.valueOf(obj_homes[i]);
+					if(!(i == obj_homes.length - 1)){
+						str_homes += ", ";
+					}
 				}
 			}
 			if(str_homes.contains(str_uuid)) {
