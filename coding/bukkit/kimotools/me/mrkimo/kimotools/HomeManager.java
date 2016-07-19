@@ -26,7 +26,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class HomeManager {
 
-	HashMap<String, String> map;
+	HashMap<String, String> map; // Still the same because a combined variable of the uuid (as string) and name is used
 	
 	String homeFileLocation;
 	
@@ -36,10 +36,10 @@ public class HomeManager {
 	}
 	
 	/**
-	 * Returns the WarpPoint with the specified name.
-	 * If there is no WarpPoint with that name, null will be returned
-	 * @param name
-	 * @return WarpPoint, if available; else null
+	 * Returns the HomePoint with the specified name.
+	 * If there is no HomePoint with that name, null will be returned
+	 * @param uuid, name
+	 * @return HomePoint, if available; else null
 	 */
 	public Location getHome(UUID uuid, String name){
 		//Load Map (Update)
@@ -47,7 +47,7 @@ public class HomeManager {
 		//Combovar of Homename & UUID of Player
 		String uniqhome = uuid.toString() + name;
 
-		//Reads the WarpPoint and returns its Location
+		//Reads the HomePoint and returns its Location
 		try{
 			StringTokenizer toker = new StringTokenizer(map.get(uniqhome), ";");
 			Location loc = new Location(Bukkit.getWorld(toker.nextToken()),
@@ -62,9 +62,9 @@ public class HomeManager {
 	}
 	
 	/**
-	 * Removes the WarpPoint with the specified name.<br>
-	 * If there is no WarpPoint with that name, nothing will happen.
-	 * @param name
+	 * Removes the HomePoint with the specified name.<br>
+	 * If there is no HomePoint with that name, nothing will happen.
+	 * @param uuid, name
 	 */
 	public void removeHome(UUID uuid, String name){
 		//Load Map (Update)
@@ -73,7 +73,7 @@ public class HomeManager {
 		//Combovar of Homename & UUID of Player
 		String uniqhome = uuid.toString() + name;
 		
-		//Remove WarpPoint from Map
+		//Remove HomePoint from Map
 		map.remove(uniqhome);
 		
 		//Save Map
@@ -88,12 +88,13 @@ public class HomeManager {
 	}
 	
 	/**
-	 * Adds/Saves a new WarpPoint
-	 * @param name	Name of the WarpPoint
-	 * @param loc	Location of the WarpPoint
+	 * Adds/Saves a new HomePoint
+	 * @param uuid  UUID of Player
+	 * @param name	Name of the HomePoint
+	 * @param loc	Location of the HomePoint
 	 * @return  Status-Integer<br>
 	 * 			0 : Success
-	 * 			1 : WarpPoint with that name already exists
+	 * 			1 : HomePoint with that name already exists
 	 * 			2 : Other error (cf. console error log)
 	 */
 	public int addHome(UUID uuid, String name, Location loc){
@@ -103,7 +104,7 @@ public class HomeManager {
 		//Combovar of Homename & UUID of Player
 		String uniqhome = uuid.toString() + name;
 		
-		//Create new WarpPoint and write it to Map
+		//Create new HomePoint and write it to Map
 		if(!map.containsKey(uniqhome)){
 			map.put(uniqhome, loc.getWorld().getName() + ";" + loc.getX() + ";" + loc.getY() + ";" + loc.getZ() + ";" + loc.getYaw() + ";" + loc.getPitch());
 		} else {
@@ -125,7 +126,7 @@ public class HomeManager {
 	}
 	
 	/**
-	 * Returns a list of all existing WarpPoints
+	 * Returns a list of all existing HomePoints
 	 * @return Array of Objects (all of them Strings)
 	 *
 	*/
