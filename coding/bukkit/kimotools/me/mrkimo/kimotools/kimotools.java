@@ -9,12 +9,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.StringTokenizer;
 import java.util.UUID;
+import java.lang.Integer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.Sound;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.Material;
+import org.bukkit.material.MaterialData;
+import org.bukkit.enchantments.Enchantment;
+
 
 public class kimotools extends JavaPlugin implements Listener {
 	
@@ -260,7 +267,7 @@ public class kimotools extends JavaPlugin implements Listener {
 			if(!p.hasPermission("kimotools.home")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
 			String str_homes = "";
 			Object[] obj_homes = homeMgr.getHomeList();
-			for(int i = 0; i < obj_homes.length; i++){
+			for(byte i = 0; i < obj_homes.length; i++){
 				if(String.valueOf(obj_homes[i]).contains(str_uuid)){
 					str_homes += String.valueOf(obj_homes[i]);
 					if(!(i == obj_homes.length - 1)){
@@ -272,6 +279,68 @@ public class kimotools extends JavaPlugin implements Listener {
 					str_homes = str_homes.replace(str_uuid,"");
 			}
 			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Ihre R\u00fcckzugsorte: " + ChatColor.AQUA + str_homes);
+		}
+		//i (item) command
+		if (cmd.getName().equalsIgnoreCase("i") || cmd.getName().equalsIgnoreCase("item")){
+			if(p==null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+			if(args.length < 1){ p.sendMessage(ChatColor.RED + "ERROR: Es muss mindestens 1 Argument angegeben werden!"); return false;}
+			if(args[0].equalsIgnoreCase("give")){
+				if(!p.hasPermission("kimotools.item.give")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+				if(args.length != 3){p.sendMessage(ChatColor.RED + "ERROR: Es müssen mindestens 3 Argument angegeben werden!"); return false;}
+				Material mat = null;
+				mat = mat.getMaterial(args[1]);
+				if(mat == null){p.sendMessage(ChatColor.RED + "ERROR: Item nicht gefunden!"); return true;}
+				try {
+					int amount = Integer.parseInt(args[2]);
+					ItemStack item = new ItemStack(mat, amount);
+					try{
+						p.getInventory().addItem(item);
+						p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Das Item wurde ihrem Inventar erfolgreich hinzugefügt!");
+						return true;
+					} catch(IllegalArgumentException e) {
+						p.sendMessage(ChatColor.RED + "ERROR: Item nicht gefunden!");
+						return true;
+					}
+				} catch(NumberFormatException e){
+					p.sendMessage(ChatColor.RED + "ERROR: Die Anzahl muss eine Zahl sein!");
+					return true;
+				}
+				
+			}
+			if(args[0].equalsIgnoreCase("enchant")){
+				if(!p.hasPermission("kimotools.item.enchant")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+				if(args.length != 3){p.sendMessage(ChatColor.RED + "ERROR: Es müssen mindestens 3 Argument angegeben werden!"); return false;}
+				ItemStack inHand = p.getInventory().getItemInMainHand();
+				Enchantment ench = null;
+				ench = ench.getByName(args[1]);
+				if(ench == null){p.sendMessage(ChatColor.RED + "ERROR: Verzauberung nicht gefunden!"); return true;}
+				try {
+					int ench_lvl = Integer.parseInt(args[2]);
+					inHand.addUnsafeEnchantment(ench, ench_lvl);
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Verzauberung " + ChatColor.AQUA + ench.toString() + ChatColor.GREEN + " wurde zu " + ChatColor.AQUA + inHand.getData().getItemType().toString() + ChatColor.GREEN + " hinzugefügt!");
+					return true;
+				} catch(NumberFormatException e){
+					p.sendMessage(ChatColor.RED + "ERROR: Das Verzauberunglevel muss eine Zahl sein!");
+					return true;
+				}
+			}
+			if(args[0].equalsIgnoreCase("clone")){
+				if(!p.hasPermission("kimotools.item.clone")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+				if(args.length != 1){ p.sendMessage(ChatColor.RED +  "ERROR: Es muss ein Argument angegeben werden!"); return false; }
+				p.getInventory().addItem(p.getInventory().getItemInMainHand());
+				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Das Item wurde erfolgreich geklont und ihrem Inventar hinzugefügt!");
+				return true;
+			} else if(args[0].equalsIgnoreCase("info")){
+				return false;
+			}
+			if(args[0].equalsIgnoreCase("list")){
+				if(args.length != 1){ p.sendMessage(ChatColor.RED +  "ERROR: Es muss ein Argument angegeben werden!"); return false; }
+				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Verzauberungen: " + ChatColor.AQUA + "https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html");
+				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Items/Bl\u00f6cke: " + ChatColor.AQUA + "https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html");
+				return true;
+			}
+			p.sendMessage(ChatColor.RED + "ERROR: Sub-befehl nicht gefunden");
+			return false;
 		}
 		return true;
 	}

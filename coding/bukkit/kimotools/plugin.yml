@@ -60,6 +60,18 @@ commands:
           description: list homes
           usage: /<command>
           permission: kimotools.home
+     i:
+          description: various item commands
+          usage: /<command> args args args ...
+          permission: kimotools.item.give
+          permission: kimotools.item.clone
+          permission: kimotools.item.enchant
+     item:
+          description: various item commands
+          usage: /<command> args args args ...
+          permission: kimotools.item.give
+          permission: kimotools.item.clone
+          permission: kimotools.item.enchant
 permissions:
   kimotools.gethealth:
     description: gethealth command
@@ -77,3 +89,9 @@ permissions:
     description: modify warps
   kimotools.home:
     description: home commands
+  kimotools.item.give:
+    description: item give command
+  kimotools.item.clone:
+    description: item clone command
+  kimotools.item.enchant:
+    description: item enchant command
