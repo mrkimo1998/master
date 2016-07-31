@@ -288,7 +288,7 @@ public class kimotools extends JavaPlugin implements Listener {
 				if(!p.hasPermission("kimotools.item.give")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
 				if(args.length != 3){p.sendMessage(ChatColor.RED + "ERROR: Es müssen mindestens 3 Argument angegeben werden!"); return false;}
 				Material mat = null;
-				mat = mat.getMaterial(args[1]);
+				mat = mat.getMaterial(args[1].toUpperCase());
 				if(mat == null){p.sendMessage(ChatColor.RED + "ERROR: Item nicht gefunden!"); return true;}
 				try {
 					int amount = Integer.parseInt(args[2]);
@@ -312,7 +312,7 @@ public class kimotools extends JavaPlugin implements Listener {
 				if(args.length != 3){p.sendMessage(ChatColor.RED + "ERROR: Es müssen mindestens 3 Argument angegeben werden!"); return false;}
 				ItemStack inHand = p.getInventory().getItemInMainHand();
 				Enchantment ench = null;
-				ench = ench.getByName(args[1]);
+				ench = ench.getByName(args[1].toUpperCase());
 				if(ench == null){p.sendMessage(ChatColor.RED + "ERROR: Verzauberung nicht gefunden!"); return true;}
 				try {
 					int ench_lvl = Integer.parseInt(args[2]);
@@ -331,7 +331,10 @@ public class kimotools extends JavaPlugin implements Listener {
 				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Das Item wurde erfolgreich geklont und ihrem Inventar hinzugefügt!");
 				return true;
 			} else if(args[0].equalsIgnoreCase("info")){
-				return false;
+				if(args.length != 1){ p.sendMessage(ChatColor.RED +  "ERROR: Es muss ein Argument angegeben werden!"); return false; }
+				String str_info = p.getInventory().getItemInMainHand().toString();
+				p.sendMessage("[WIP] " + str_info);
+				return true;
 			}
 			if(args[0].equalsIgnoreCase("list")){
 				if(args.length != 1){ p.sendMessage(ChatColor.RED +  "ERROR: Es muss ein Argument angegeben werden!"); return false; }
