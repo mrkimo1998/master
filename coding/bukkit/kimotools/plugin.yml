@@ -72,26 +72,10 @@ commands:
           permission: kimotools.item.give
           permission: kimotools.item.clone
           permission: kimotools.item.enchant
-permissions:
-  kimotools.gethealth:
-    description: gethealth command
-  kimotools.aflame:
-    description: aflame command
-  kimotools.tp:
-    description: beam command
-  kimotools.tp.others:
-    description: beam others command
-  kimotools.tp.here:
-    description: beam2me command
-  kimotools.warp:
-    description: warp / warplist command
-  kimotools.warp.mod:
-    description: modify warps
-  kimotools.home:
-    description: home commands
-  kimotools.item.give:
-    description: item give command
-  kimotools.item.clone:
-    description: item clone command
-  kimotools.item.enchant:
-    description: item enchant command
+     setspawn:
+          description: set spawn
+          usage: /<command>
+          permission: kimotools.spawn.set
+     spawn:
+          description: teleport to spawn
+          usage: /<command>

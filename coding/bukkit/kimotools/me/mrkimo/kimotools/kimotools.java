@@ -10,6 +10,9 @@ import java.io.ObjectOutputStream;
 import java.util.StringTokenizer;
 import java.util.UUID;
 import java.lang.Integer;
+import java.lang.Byte;
+import java.lang.Short;
+import java.lang.Double;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -24,7 +27,7 @@ import org.bukkit.enchantments.Enchantment;
 
 
 public class kimotools extends JavaPlugin implements Listener {
-	
+
 	WarpManager warpMgr;
 	HomeManager homeMgr;
 	final String path1 = "Configuration.serverteam";
@@ -34,7 +37,7 @@ public class kimotools extends JavaPlugin implements Listener {
 	public void onDisable() {
 		System.out.println("[KimoTools] Plugin wurde deaktiviert.");
 	}
-	
+
 	@Override
 	public void onEnable() {
 		System.out.println("==================================");
@@ -50,7 +53,7 @@ public class kimotools extends JavaPlugin implements Listener {
 		System.out.println("[KimoTools] Plugin by MrKimo.");
 		System.out.println("==================================");
 	}
-	
+
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		String owner = this.getConfig().getString(path2);
@@ -69,7 +72,7 @@ public class kimotools extends JavaPlugin implements Listener {
 
 		double health;
 		String serverteam = this.getConfig().getString(path1);
-			
+
 		//serverteam command
 		if(cmd.getName().equalsIgnoreCase("serverteam")){
 			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true; }
@@ -81,7 +84,7 @@ public class kimotools extends JavaPlugin implements Listener {
 		if(cmd.getName().equalsIgnoreCase("gethealth")){
 			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true; }
 			if(!p.hasPermission("kimotools.gethealth")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true; }
-			if(args.length > 1){ p.sendMessage(ChatColor.RED + "ERROR: Zu viele Argumente!"); return false; }	
+			if(args.length > 1){ p.sendMessage(ChatColor.RED + "ERROR: Zu viele Argumente!"); return false; }
 			else if(args.length == 0){
 				health = p.getHealth();
 				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Ihr Leben liegt bei " + ChatColor.RED + health/2 + ChatColor.GREEN + " Herzen.");
@@ -94,7 +97,7 @@ public class kimotools extends JavaPlugin implements Listener {
 						p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Die Leben des Spielers " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " liegen bei " + ChatColor.RED + health/2 + ChatColor.GREEN + " Herzen.");
 						return true;
 					}
-				} 
+				}
 				p.sendMessage(ChatColor.RED + " ERROR: Spieler offline!");
 				return true;
 			}
@@ -118,7 +121,7 @@ public class kimotools extends JavaPlugin implements Listener {
 						curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Der Spieler " + ChatColor.AQUA + p.getName() + ChatColor.GREEN + " hat dich in Brand gesetzt.");
 						return true;
 					}
-				} 
+				}
 				p.sendMessage(ChatColor.RED + " ERROR: Spieler offline!");
 				return true;
 			}
@@ -141,7 +144,7 @@ public class kimotools extends JavaPlugin implements Listener {
 							}
 						}
 						p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
-						return true;	
+						return true;
 					} else { p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
 				}
 				else if (args.length == 2) {
@@ -305,7 +308,7 @@ public class kimotools extends JavaPlugin implements Listener {
 					p.sendMessage(ChatColor.RED + "ERROR: Die Anzahl muss eine Zahl sein!");
 					return true;
 				}
-				
+
 			}
 			if(args[0].equalsIgnoreCase("enchant")){
 				if(!p.hasPermission("kimotools.item.enchant")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
@@ -344,6 +347,29 @@ public class kimotools extends JavaPlugin implements Listener {
 			}
 			p.sendMessage(ChatColor.RED + "ERROR: Sub-befehl nicht gefunden");
 			return false;
+		}
+		//setspawn
+		if(cmd.getName().equalsIgnoreCase("setspawn")){
+			if(!p.hasPermission("kimotools.spawn.set")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+			if(args.length == 0){
+				Location loc = p.getLocation();
+				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Der Spawnpunkt für diese Welt wird an ihrem Standort gesetzt!");
+				if(loc.getWorld().setSpawnLocation((int) loc.getX(), (int) loc.getY(), (int) loc.getZ()) == true){
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Spawnpunkt erfolgreich gesetzt!");
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Spawn: " + ChatColor.AQUA + loc.toString());
+					return true;
+				} else {
+					p.sendMessage(ChatColor.RED + "ERROR: Fehler!");
+					return true;
+				}
+			} else { p.sendMessage(ChatColor.RED +  "ERROR: Es muss darf kein Argument angegeben werden!"); return false;}
+		}
+		if(cmd.getName().equalsIgnoreCase("spawn")){
+			if(args.length != 0){p.sendMessage(ChatColor.RED +  "ERROR: Es darf kein Argument angegeben werden!"); return false; }
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Beame zum Spawn...");
+			p.teleport(p.getWorld().getSpawnLocation());
+			p.playSound(p.getWorld().getSpawnLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
+			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Sie haben ihr Ziel erreicht!");
 		}
 		return true;
 	}
