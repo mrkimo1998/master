@@ -8,6 +8,7 @@ jar uvf Game.jar ./me/mrkimo/game/Screen.class
 jar uvf Game.jar ./me/mrkimo/game/InputHandler.class
 jar uvf Game.jar ./me/mrkimo/game/Key.class
 jar uvf Game.jar ./me/mrkimo/game/Colors.class
+jar uvf Game.jar ./me/mrkimo/game/Font.class
 jar uvf Game.jar ../res/spritesheet.png
 mv Game.jar ../
 echo 'DONE'

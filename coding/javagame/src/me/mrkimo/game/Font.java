@@ -9,11 +9,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.awt.Image;
 import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Random;
-import java.util.List;
 import java.lang.System;
 import java.lang.Integer;
 import java.lang.Thread;
@@ -21,16 +18,18 @@ import java.lang.Thread;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class Colors{
-  public static int get(int color1, int color2, int color3, int color4){
-    return (get(color1) << 24) + (get(color2) << 16) + (get(color3) << 8) + get(color4);
-  }
-  public static int get(int color){
-    if(color < 0){return 255;}
-    int r = color / 100 % 10;
-    int g = color / 10 % 10;
-    int b = color % 10;
+public class Font{
 
-    return r * 36 + g * 6 + b;
+  private static String chars = "  !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+  public static void render(String msg, Screen screen, int x, int y, int color){
+
+    for(int i = 0; i < msg.length(); i++){
+      int charIndex = chars.indexOf(msg.charAt(i));
+      if (charIndex >= 0) screen.render(x+i*8, y, charIndex + 29 * 32, color);
+
+    }
+
   }
+
 }
