@@ -12,6 +12,9 @@ jar uvf Game.jar ./me/mrkimo/game/Font.class
 jar uvf Game.jar ./me/mrkimo/game/Level.class
 jar uvf Game.jar ./me/mrkimo/game/Tile.class
 jar uvf Game.jar ./me/mrkimo/game/BasicTile.class
+jar uvf Game.jar ./me/mrkimo/game/Entity.class
+jar uvf Game.jar ./me/mrkimo/game/Mob.class
+jar uvf Game.jar ./me/mrkimo/game/Player.class
 jar uvf Game.jar ../res/spritesheet.png
 mv Game.jar ../
 echo 'DONE'

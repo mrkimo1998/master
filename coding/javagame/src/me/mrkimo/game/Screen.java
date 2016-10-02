@@ -23,6 +23,9 @@ public class Screen {
   private static final int MAP_WIDTH = 64;
   private static final int MAP_WIDTH_MASK = MAP_WIDTH - 1;
 
+  public static final byte bitMirrorX = 0x01;
+  public static final byte bitMirrorY = 0x02;
+
   public int[] pixels;
 
   public int xOffset = 0;
@@ -71,12 +74,16 @@ public class Screen {
     }
   }*/
   public void render(int xPos, int yPos, int tile, int color){
-    render(xPos, yPos, tile, color, false, false);
+    render(xPos, yPos, tile, color, 0x00);
   }
 
-  public void render(int xPos, int yPos, int tile, int color, boolean mirrorX, boolean mirrorY){
+  public void render(int xPos, int yPos, int tile, int color, int mirrorDir){
     xPos -= xOffset;
     yPos -= yOffset;
+
+    boolean mirrorX = (mirrorDir & bitMirrorX) > 0;
+    boolean mirrorY = (mirrorDir & bitMirrorY) > 0;
+
 
     int xTile = tile % 32;
     int yTile = tile / 32;
