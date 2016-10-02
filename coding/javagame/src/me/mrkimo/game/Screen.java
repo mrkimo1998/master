@@ -96,6 +96,9 @@ public class Screen {
         if(col < 255) pixels[(x+xPos) + (y+yPos) * width] = col;
       }
     }
-
+  }
+  public void setOffset(int xOff, int yOff){
+    this.xOffset = xOff;
+    this.yOffset = yOff;
   }
 }

@@ -23,8 +23,8 @@ public class Game extends Canvas implements Runnable{
   private static final long serialVersionUID = 42l;
 
   private static final short WIDTH = 160;
-  private static final short HEIGHT = WIDTH / 16 * 9;
-  private static final short SCALE = 6;
+  private static final short HEIGHT = WIDTH / 12 * 9;
+  private static final short SCALE = 4;
   public static final String NAME = "Game";
   public boolean running = false;
   public int tickCount = 0;
@@ -39,6 +39,7 @@ public class Game extends Canvas implements Runnable{
 
   private Screen screen;
   public InputHandler input;
+  public Level level;
 
   public Game() {
     setMinimumSize(new Dimension(WIDTH * SCALE,HEIGHT * SCALE));
@@ -79,11 +80,16 @@ public class Game extends Canvas implements Runnable{
 
     screen = new Screen(WIDTH, HEIGHT, new Spritesheet("/res/spritesheet.png"));
     input = new InputHandler(this);
+    level = new Level(64, 64);
   }
 
   public synchronized void start(){
     running = true;
-    new Thread(this).start();
+    //int cores = Runtime.getRuntime().availableProcessors();
+    //for(int c = cores; c > 0; c--){
+      new Thread(this).start();
+      //System.out.println("Thread" + c + " started!");
+    //}
   }
 
   public synchronized void stop(){
@@ -114,8 +120,16 @@ public class Game extends Canvas implements Runnable{
         shouldRender = true;
       }
       if(shouldRender){
-      frames++;
-      render();
+      }
+      try {
+        Thread.sleep(2);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
+      if (shouldRender) {
+        frames++;
+        render();
       }
 
       if(System.currentTimeMillis() - lastTimer >= 1000){
@@ -127,13 +141,17 @@ public class Game extends Canvas implements Runnable{
     }
   }
 
+  private int x = 0,y = 0;
+
   private void tick(){
     tickCount++;
 
-    if(input.up.isPressed()){ screen.yOffset--;}
-    if(input.down.isPressed()){ screen.yOffset++;}
-    if(input.left.isPressed()){ screen.xOffset--;}
-    if(input.right.isPressed()){ screen.xOffset++;}
+    if(input.up.isPressed()){ y--;}
+    if(input.down.isPressed()){ y++;}
+    if(input.left.isPressed()){ x--;}
+    if(input.right.isPressed()){ x++;}
+
+    level.tick();
   }
 
   private void render(){
@@ -143,13 +161,9 @@ public class Game extends Canvas implements Runnable{
       return;
     }
 
-    for(int y = 0; y < 32; y++){
-      for(int x = 0; x < 32; x++){
-        screen.render(x << 3, y << 3, 0, Colors.get(555, 505, 055, 550), true, true);
-      }
-    }
-
-    Font.render("[Evil H4X0R]> Hoi!", screen, 0, 0, Colors.get(000, -1, -1, 555));
+    int xOffset = x - (screen.width/2);
+    int yOffset = y - (screen.height/2);
+    level.renderTiles(screen, xOffset, yOffset);
 
     for(int y = 0; y < screen.height; y++){
       for(int x = 0; x < screen.width; x++){
