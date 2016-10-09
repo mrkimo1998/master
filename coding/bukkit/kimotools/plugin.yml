@@ -2,12 +2,20 @@ name: KimoTools
 version: 0.0.1337
 main: me.mrkimo.kimotools.kimotools
 author: MrKimo
-website: None
+website: mrkimo.ddns.net
 commands:
      gethealth:
-          description: getHealth of a yourself or others
+          description: getHealth of yourself or others
           usage: /<command> [Player]
           permission: kimotools.gethealth
+     sethealth:
+          description: sethealth of yourself or others
+          usage: /<command> <Health> [Player]
+          permission: kimotools.sethealth
+     setmaxhealth:
+          description: setmaxhealth of yourself or others
+          usage: /<command> <Health> [Player]
+          permission: kimotools.setmaxhealth
      serverteam:
           description: display serverteam
           usage: /serverteam

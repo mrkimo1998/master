@@ -103,6 +103,91 @@ public class kimotools extends JavaPlugin implements Listener {
 			}
 			return false;
 		}
+		//setmaxhealth command
+		if(cmd.getName().equalsIgnoreCase("setmaxhealth")){
+			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+			if(!p.hasPermission("kimotools.setmaxhealth")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return false;}
+			if(args.length > 2){ p.sendMessage(ChatColor.RED + "ERROR: Zu viele Argumente!"); return false; }
+			else if(args.length == 1){
+				try {
+					health = Integer.parseInt(args[0])*2;
+					p.setMaxHealth(health);
+					p.playSound(p.getLocation(), (Sound) Sound.ENTITY_PLAYER_LEVELUP, (float) 1, (float) 1);
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Ihre Maximalen-Leben wurde auf " + ChatColor.RED + health/2 + ChatColor.GREEN + " Herzen gesetzt.");
+					return true;
+				} catch(IllegalArgumentException e) {
+					p.sendMessage(ChatColor.RED + "ERROR: Keine Zahl!");
+					return false;
+				}
+			}
+			else if(args.length == 2){
+				try{
+					for(Player curp : this.getServer().getOnlinePlayers()){
+						if(curp.getName().equalsIgnoreCase(args[1])){
+							health = Integer.parseInt(args[0])*2;
+							curp.setMaxHealth(health);
+							curp.playSound(curp.getLocation(), (Sound) Sound.ENTITY_PLAYER_LEVELUP, (float) 1, (float) 1);
+							curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Deine Maximalen-Leben wurden auf " + ChatColor.AQUA + health/2 + ChatColor.GREEN + " gesetzt!");
+							p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Die Maximalen-Leben des Spielers " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " wurden auf " + ChatColor.RED + health/2 + ChatColor.GREEN + " Herzen gesetzt.");
+							return true;
+						}
+					}
+				} catch(IllegalArgumentException e) {
+					p.sendMessage(ChatColor.RED + "ERROR: Keine Zahl!");
+					return false;
+				}
+				p.sendMessage(ChatColor.RED + " ERROR: Spieler offline!");
+				return true;
+			}
+			return false;
+		}
+		//sethealth command
+		if(cmd.getName().equalsIgnoreCase("sethealth")){
+			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+			if(!p.hasPermission("kimotools.sethealth")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return false;}
+			if(args.length > 2){ p.sendMessage(ChatColor.RED + "ERROR: Zu viele Argumente!"); return false; }
+			else if(args.length == 1){
+				try {
+					if(Integer.parseInt(args[0])*2 > p.getMaxHealth()){
+						health = p.getMaxHealth();
+					} else {
+						health = Integer.parseInt(args[0])*2;
+					}
+					p.setHealth(health);
+					p.playSound(p.getLocation(), (Sound) Sound.ENTITY_PLAYER_LEVELUP, (float) 1, (float) 1);
+					p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Ihr Leben wurde auf " + ChatColor.RED + health/2 + ChatColor.GREEN + " Herzen gesetzt.");
+					return true;
+				} catch(IllegalArgumentException e) {
+					p.sendMessage(ChatColor.RED + "ERROR: Keine Zahl!");
+					return false;
+				}
+			}
+			else if(args.length == 2){
+				try{
+					for(Player curp : this.getServer().getOnlinePlayers()){
+						if(curp.getName().equalsIgnoreCase(args[1])){
+							if(Integer.parseInt(args[0])*2 > curp.getMaxHealth()){
+								health = curp.getMaxHealth();
+							} else {
+								health = Integer.parseInt(args[0])*2;
+							}
+							curp.setHealth(health);
+							curp.playSound(curp.getLocation(), (Sound) Sound.ENTITY_PLAYER_LEVELUP, (float) 1, (float) 1);
+							curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Deine Leben wurden auf " + ChatColor.AQUA + health/2 + ChatColor.GREEN + " gesetzt!");
+							p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Die Leben des Spielers " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " wurden auf " + ChatColor.RED + health/2 + ChatColor.GREEN + " Herzen gesetzt.");
+							return true;
+						}
+					}
+				} catch(IllegalArgumentException e) {
+					p.sendMessage(ChatColor.RED + "ERROR: Keine Zahl!");
+					return false;
+				}
+				p.sendMessage(ChatColor.RED + " ERROR: Spieler offline!");
+				return true;
+			}
+			return false;
+
+		}
 		//aflame command
 		if(cmd.getName().equalsIgnoreCase("aflame")){
 			if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true; }
