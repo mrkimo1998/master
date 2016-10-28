@@ -1,22 +1,33 @@
-import java.util.Random;
 import java.lang.System;
+import java.lang.Runtime;
+import java.lang.Math;
 import java.lang.Integer;
 import java.lang.Double;
 import java.io.Console;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 
 public class Goal {
+
+  public static final String VERSION = "0.0.2";
+  public static PrintStream out = System.out;
+  public static InputStream in = System.in;
+
   public static void main(String[] args) {
 
-    int int_hWins = 0;
-    int int_gWins = 0;
+    int int_hPlays = 0;
+    int int_gPlays = 0;
     int int_h_gGoals = 0;
     int int_g_gGoals = 0;
     int int_h_bGoals = 0;
     int int_g_bGoals = 0;
 
 
-    System.out.println("Willkommen! \n Dies ist Goal, \n ein Gewinnchancenberechner (TM) für ihr nächstes Fußballmatch!");
+    out.println("Willkommen! \n Dies ist Goal : Version " + VERSION + " \n Dieses Programm berechnet die mögliche Anzahl an Toren die in diesem Spiel fallen!");
+    out.println("\n Zum Fortfahren bitte [Enter] drücken!");
+
+    //PAUSE
     try{
       System.in.read();
     } catch (IOException e){
@@ -24,52 +35,40 @@ public class Goal {
     }
     clearScreen();
 
-    System.out.println("Geben sie nun nacheinander die verlangten Angaben ein!");
-
-    System.out.print("Siege der Heimmannschaft: ");
-    String hWins = System.console().readLine();
-    System.out.println("\n");
-
-    System.out.print("Siege der Gastmannschaft: ");
-    String gWins = System.console().readLine();
-    System.out.println("\n");
-
-    System.out.print("Geschossene Tore der Heimmannschaft: ");
+    out.println("Geben sie nun nacheinander die verlangten Angaben ein!\n");
+    out.print("Spiele der Heimmannschaft: ");
+    String hPlays = System.console().readLine();
+    out.print("Spiele der Gastmannschaft: ");
+    String gPlays = System.console().readLine();
+    out.print("Geschossene Tore der Heimmannschaft: ");
     String h_gGoals = System.console().readLine();
-    System.out.println("\n");
-
-    System.out.print("Geschossene Tore der Gastmannschaft: ");
+    out.print("Geschossene Tore der Gastmannschaft: ");
     String g_gGoals = System.console().readLine();
-    System.out.println("\n");
-
-    System.out.print("Gegentore der Heimmannschaft: ");
+    out.print("Gegentore der Heimmannschaft: ");
     String h_bGoals = System.console().readLine();
-    System.out.println("\n");
-
-    System.out.print("Gegentore der Gastmannschaft: ");
+    out.print("Gegentore der Gastmannschaft: ");
     String g_bGoals = System.console().readLine();
-    System.out.println("\n");
 
+    clearScreen();
+
+    //PARSING
     try {
-
-      int_hWins = Integer.parseInt(hWins);
-      int_gWins = Integer.parseInt(gWins);
+      int_hPlays = Integer.parseInt(hPlays);
+      int_gPlays = Integer.parseInt(gPlays);
       int_h_gGoals = Integer.parseInt(h_gGoals);
       int_g_gGoals = Integer.parseInt(g_gGoals);
       int_h_bGoals = Integer.parseInt(h_bGoals);
       int_g_bGoals = Integer.parseInt(g_bGoals);
-      clearScreen();
 
-      double chance = ((((double)int_h_gGoals / (double)int_hWins) + ((double)int_g_gGoals / (double)int_gWins)) / (((double)int_h_bGoals / (double)int_hWins) + ((double)int_g_bGoals / (double)int_gWins))) + (((((double)int_h_gGoals / (double)int_hWins) + ((double)int_g_gGoals / (double)int_gWins)) / (((double)int_h_bGoals / (double)int_hWins) + ((double)int_g_bGoals / (double)int_gWins))) / (double)2);
+      double goals = ((((double)int_h_gGoals / (double)int_hPlays) + ((double)int_g_gGoals / (double)int_gPlays)) / (((double)int_h_bGoals / (double)int_hPlays) + ((double)int_g_bGoals / (double)int_gPlays))) + (((((double)int_h_gGoals / (double)int_hPlays) + ((double)int_g_gGoals / (double)int_gPlays)) / (((double)int_h_bGoals / (double)int_hPlays) + ((double)int_g_bGoals / (double)int_gPlays))) / (double)2);
 
-      System.out.println("Die Gewinnchance der Heimmannschaft liegt bei " + ((double) chance * 10) + " % !");
+      out.println("Die wahrscheinliche Anzahl von Toren in diesem Spiel beträgt:\n " + Math.round(goals) + " Tore");
 
     } catch(IllegalArgumentException e) {
       System.exit(406);
     }
   }
   public static void clearScreen() {
-      System.out.print("\033[H\033[2J");
-      System.out.flush();
+    for(int i = 0; i < 300; i++) out.println("\b");
   }
 }
