@@ -16,12 +16,12 @@ public class Goal {
 
   public static void main(String[] args) {
 
-    int int_hPlays = 0;
-    int int_gPlays = 0;
-    int int_h_gGoals = 0;
-    int int_g_gGoals = 0;
-    int int_h_bGoals = 0;
-    int int_g_bGoals = 0;
+    double d_hPlays = 0;
+    double d_gPlays = 0;
+    double d_h_gGoals = 0;
+    double d_g_gGoals = 0;
+    double d_h_bGoals = 0;
+    double d_g_bGoals = 0;
 
 
     out.println("Willkommen! \n Dies ist Goal : Version " + VERSION + " \n Dieses Programm berechnet die mögliche Anzahl an Toren die in diesem Spiel fallen!");
@@ -29,8 +29,9 @@ public class Goal {
 
     //PAUSE
     try{
-      System.in.read();
+      in.read();
     } catch (IOException e){
+      out.println(e.toString());
       System.exit(500);
     }
     clearScreen();
@@ -53,18 +54,19 @@ public class Goal {
 
     //PARSING
     try {
-      int_hPlays = Integer.parseInt(hPlays);
-      int_gPlays = Integer.parseInt(gPlays);
-      int_h_gGoals = Integer.parseInt(h_gGoals);
-      int_g_gGoals = Integer.parseInt(g_gGoals);
-      int_h_bGoals = Integer.parseInt(h_bGoals);
-      int_g_bGoals = Integer.parseInt(g_bGoals);
+      d_hPlays = Double.parseInt(hPlays);
+      d_gPlays = Double.parseInt(gPlays);
+      d_h_gGoals = Double.parseInt(h_gGoals);
+      d_g_gGoals = Double.parseInt(g_gGoals);
+      d_h_bGoals = Double.parseInt(h_bGoals);
+      d_g_bGoals = Double.parseInt(g_bGoals);
 
-      double goals = ((((double)int_h_gGoals / (double)int_hPlays) + ((double)int_g_gGoals / (double)int_gPlays)) / (((double)int_h_bGoals / (double)int_hPlays) + ((double)int_g_bGoals / (double)int_gPlays))) + (((((double)int_h_gGoals / (double)int_hPlays) + ((double)int_g_gGoals / (double)int_gPlays)) / (((double)int_h_bGoals / (double)int_hPlays) + ((double)int_g_bGoals / (double)int_gPlays))) / (double)2);
+      double goals = (((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) + ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0);
 
       out.println("Die wahrscheinliche Anzahl von Toren in diesem Spiel beträgt:\n " + Math.round(goals) + " Tore");
 
     } catch(IllegalArgumentException e) {
+      out.println(e.toString());
       System.exit(406);
     }
   }
