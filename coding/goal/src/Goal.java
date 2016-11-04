@@ -54,12 +54,12 @@ public class Goal {
 
     //PARSING
     try {
-      d_hPlays = Double.parseInt(hPlays);
-      d_gPlays = Double.parseInt(gPlays);
-      d_h_gGoals = Double.parseInt(h_gGoals);
-      d_g_gGoals = Double.parseInt(g_gGoals);
-      d_h_bGoals = Double.parseInt(h_bGoals);
-      d_g_bGoals = Double.parseInt(g_bGoals);
+      d_hPlays = Double.parseDouble(hPlays);
+      d_gPlays = Double.parseDouble(gPlays);
+      d_h_gGoals = Double.parseDouble(h_gGoals);
+      d_g_gGoals = Double.parseDouble(g_gGoals);
+      d_h_bGoals = Double.parseDouble(h_bGoals);
+      d_g_bGoals = Double.parseDouble(g_bGoals);
 
       double goals = (((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) + ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0);
 
