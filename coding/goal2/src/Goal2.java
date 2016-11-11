@@ -96,8 +96,6 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
     t_result = new TextField();
 
     t_result.setEditable(false);
-    t_result.setStyle("-fx-background-color: gray;");
-
     
     layout.setAlignment(Pos.CENTER);
     layout.setHgap(5.0);
@@ -147,7 +145,6 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
       goals = Math.round((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) + ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0));
 
       t_result.setText(String.valueOf(goals));
-      t_result.setStyle("-fx-background-color: green;");
 
     } catch(IllegalArgumentException e) {
       out.println(e.toString());
