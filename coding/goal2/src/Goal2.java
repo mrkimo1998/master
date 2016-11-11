@@ -38,6 +38,8 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
   public static PrintStream out = System.out;
   public static InputStream in = System.in;
 
+  GridPane layout = new GridPane();
+
   Button but_calc;
   Button but_close;
 
@@ -54,6 +56,10 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
   Label l_g_bGoals;
   TextField t_g_bGoals;
 
+  Label l_result;
+  TextField t_result;
+
+  double goals = 0;
   double d_hPlays = 0;
   double d_gPlays = 0;
   double d_h_gGoals = 0;
@@ -86,8 +92,13 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
     t_h_bGoals = new TextField ();
     l_g_bGoals = new Label("Gegentore der Gastmannschaft:");
     t_g_bGoals = new TextField ();
+    l_result = new Label("Ergebnis:");
+    t_result = new TextField();
 
-    GridPane layout = new GridPane();
+    t_result.setEditable(false);
+    t_result.setStyle("-fx-background-color: gray;");
+
+    
     layout.setAlignment(Pos.CENTER);
     layout.setHgap(5.0);
     layout.setVgap(5.0);
@@ -104,8 +115,10 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
     layout.add(t_h_bGoals, 2, 5);
     layout.add(l_g_bGoals, 1, 6);
     layout.add(t_g_bGoals, 2, 6);
-    layout.add(but_calc, 1, 7);
-    layout.add(but_close, 2, 7);
+    layout.add(l_result, 1, 7);
+    layout.add(t_result, 2, 7);
+    layout.add(but_calc, 1, 8);
+    layout.add(but_close, 2, 8);
 
     Scene scene = new Scene(layout, WIDTH, HEIGHT);
     primaryStage.setScene(scene);
@@ -131,9 +144,10 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
       d_h_bGoals = Double.parseDouble(t_h_bGoals.getText());
       d_g_bGoals = Double.parseDouble(t_g_bGoals.getText());
 
-      double goals = Math.round((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) + ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0));
+      goals = Math.round((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) + ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0));
 
-      JOptionPane.showMessageDialog(null, ("Die wahrscheinliche Anzahl von Toren in diesem Spiel beträgt:\n " + goals + " Tore"), "Ergebnis", JOptionPane.PLAIN_MESSAGE);
+      t_result.setText(String.valueOf(goals));
+      t_result.setStyle("-fx-background-color: green;");
 
     } catch(IllegalArgumentException e) {
       out.println(e.toString());
