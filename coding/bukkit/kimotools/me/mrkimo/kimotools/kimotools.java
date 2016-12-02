@@ -13,6 +13,8 @@ import java.lang.Integer;
 import java.lang.Byte;
 import java.lang.Short;
 import java.lang.Double;
+import java.util.List;
+import java.util.AbstractList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -30,8 +32,12 @@ public class kimotools extends JavaPlugin implements Listener {
 
 	WarpManager warpMgr;
 	HomeManager homeMgr;
+	ComManager cmdMgr;
 	final String path1 = "Configuration.serverteam";
 	final String path2 = "Configuration.owner";
+	List<String> cfg;
+	String serverteam;
+	String owner;
 
 	@Override
 	public void onDisable() {
@@ -47,6 +53,7 @@ public class kimotools extends JavaPlugin implements Listener {
 		//WarpManager
 		warpMgr = new WarpManager("warps.hashmap", this);
 		homeMgr = new HomeManager("homes.hashmap", this);
+		cmdMgr = new ComManager((JavaPlugin) this, warpMgr, homeMgr, (List) cfg);
 		//Listener
 		getServer().getPluginManager().registerEvents(this, this);
 		System.out.println("[KimoTools] Geladen!");
@@ -56,7 +63,6 @@ public class kimotools extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-		String owner = this.getConfig().getString(path2);
 		if(event.getPlayer().getName().equals(owner)){
 			event.setJoinMessage(ChatColor.RED + "Der Servereigentümer " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.RED + " hat sich eingeloggt!");
 		} else {
@@ -65,7 +71,10 @@ public class kimotools extends JavaPlugin implements Listener {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
-		Player p = null;
+		
+		cmdMgr.command(sender, cmd, cmdLabel, args);
+		
+		/**Player p = null;
 		if(sender instanceof Player){ p = (Player)sender; }
 
 		UUID uuid = p.getUniqueId();
@@ -456,7 +465,7 @@ public class kimotools extends JavaPlugin implements Listener {
 			p.playSound(p.getWorld().getSpawnLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
 			p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Sie haben ihr Ziel erreicht!");
 		}
-		return true;
+		return true;**/
 	}
 	private void loadConfig(){
 		System.out.println("[KimoTools] Config geladen!");
@@ -464,5 +473,9 @@ public class kimotools extends JavaPlugin implements Listener {
 		this.getConfig().addDefault(path2, "MrKimo");
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
+		serverteam = this.getConfig().getString(path1);
+		cfg.add((int) 1, serverteam);
+		owner = this.getConfig().getString(path2);
+		cfg.add((int) 2, owner);
 	}
 }
