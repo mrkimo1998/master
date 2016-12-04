@@ -87,3 +87,7 @@ commands:
      spawn:
           description: teleport to spawn
           usage: /<command>
+     whois:
+          description: get info about player
+          usage: /<comamnd> <Player>
+          permission: kimotools.whois

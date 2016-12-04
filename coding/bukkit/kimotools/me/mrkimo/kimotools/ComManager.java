@@ -34,23 +34,25 @@ public class ComManager {
     WarpManager warpMgr;
     HomeManager homeMgr;
     JavaPlugin plg;
-    List cfg;
+    final String path1 = "Configuration.serverteam";
+	final String path2 = "Configuration.owner";
+    String serverteam;
+    String owner;
 
-    public ComManager(JavaPlugin plg, WarpManager warpMgr, HomeManager homeMgr, List cfg) {
+    public ComManager(JavaPlugin plg, WarpManager warpMgr, HomeManager homeMgr) {
         this.plg = plg;
         this.warpMgr = warpMgr;
         this.homeMgr = homeMgr;
-        this.cfg = cfg;
+        serverteam = plg.getConfig().getString(path1);
+        owner = plg.getConfig().getString(path2);
     }
-
-    String serverteam = cfg.get(1).toString();
-    String owner = cfg.get(2).toString();
 
     public boolean command(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
         Player p = null;
 	    if(sender instanceof Player){ p = (Player)sender; }
         UUID uuid = p.getUniqueId();
         double health;
+
         //serverteam command
         if(cmd.getName().equalsIgnoreCase("serverteam")){
             if(p == null){ System.out.println("[KimoTools] Not a console command!"); return true; }
@@ -246,8 +248,9 @@ public class ComManager {
                     curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.AQUA + " " + p.getName() + ChatColor.GREEN + " hat dich zu ihm gebeamt!");
                     return true;
                 }
+                p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
+                return true;
             }
-            p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
         }
         //warp command
         if(cmd.getName().equalsIgnoreCase("warp")){
@@ -411,6 +414,7 @@ public class ComManager {
         }
         //setspawn
         if(cmd.getName().equalsIgnoreCase("setspawn")){
+            if(p==null){ System.out.println("[KimoTools] Not a console command!"); return true;}
             if(!p.hasPermission("kimotools.spawn.set")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
             if(args.length == 0){
                 Location loc = p.getLocation();
@@ -425,12 +429,37 @@ public class ComManager {
                 }
             } else { p.sendMessage(ChatColor.RED +  "ERROR: Es muss darf kein Argument angegeben werden!"); return false;}
         }
+        //spawn
         if(cmd.getName().equalsIgnoreCase("spawn")){
+            if(p==null){ System.out.println("[KimoTools] Not a console command!"); return true;}
             if(args.length != 0){p.sendMessage(ChatColor.RED +  "ERROR: Es darf kein Argument angegeben werden!"); return false; }
             p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Beame zum Spawn...");
             p.teleport(p.getWorld().getSpawnLocation());
             p.playSound(p.getWorld().getSpawnLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
             p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Sie haben ihr Ziel erreicht!");
+        }
+        //whois
+        if(cmd.getName().equalsIgnoreCase("whois")){
+            if(p==null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+            if(!p.hasPermission("kimotools.whois")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+            if(args.length != 1){p.sendMessage(ChatColor.RED + "ERROR: Es muss ein Argument angegeben werden!"); return false;}
+            if(args.length == 1){
+                for(Player curp : plg.getServer().getOnlinePlayers()){
+                    if(curp.getName().equalsIgnoreCase(args[0])){
+                        p.sendMessage(ChatColor.GREEN + "Info zu Spieler: " + ChatColor.AQUA + curp.getName());
+                        p.sendMessage(ChatColor.GREEN + "Name: " + ChatColor.AQUA + curp.getName());
+                        p.sendMessage(ChatColor.GREEN + "IP: " + ChatColor.AQUA + curp.getAddress().toString());
+                        p.sendMessage(ChatColor.GREEN + "UUID: " + ChatColor.AQUA + curp.getUniqueId().toString());
+                        p.sendMessage(ChatColor.GREEN + "Position:" + ChatColor.AQUA + curp.getLocation().toString());
+                        p.sendMessage(ChatColor.GREEN + "Leben: " + ChatColor.AQUA + (curp.getHealth() / 2));
+                        return true;
+                    }
+                    else{
+                       p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
+                        return true;
+                    }
+                }
+            }
         }
         return true;
     }
