@@ -91,3 +91,13 @@ commands:
           description: get info about player
           usage: /<comamnd> <Player>
           permission: kimotools.whois
+     gamemode:
+          description: set gamemode
+          usage: /<command> <mode> [Player]
+          permission: kimotools.gamemode
+          permission: kimotools.gamemode.others
+     gm:
+          description: set gamemode
+          usage: /<command> <mode> [Player]
+          permission: kimotools.gamemode
+          permission: kimotools.gamemode.others

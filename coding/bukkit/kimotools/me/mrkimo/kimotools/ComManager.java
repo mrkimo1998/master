@@ -25,6 +25,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.GameMode;
 import me.mrkimo.kimotools.WarpManager;
 import me.mrkimo.kimotools.HomeManager;
 import me.mrkimo.kimotools.kimotools;
@@ -461,6 +462,38 @@ public class ComManager {
                 }
             }
         }
+        //gamemode
+        if(cmd.getName().equalsIgnoreCase("gamemode") || cmd.getName().equalsIgnoreCase("gm")){
+            if(p==null){ System.out.println("[KimoTools] Not a console command!"); return true;}
+            if(args.length == 0 || args.length > 2){p.sendMessage(ChatColor.RED + "ERROR: Es muss ein/zwei Argument/e angegeben werden!"); return false;}
+            if(args.length == 1){
+                if(!p.hasPermission("kimotools.gamemode")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+                if(args[0].equalsIgnoreCase("survival") || args[0].equals("0")){
+                    p.setGameMode(GameMode.SURVIVAL);
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Survival");
+                    return true;
+                } else if(args[0].equalsIgnoreCase("creative") || args[0].equals("1")){
+                    p.setGameMode(GameMode.CREATIVE);
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Creative");
+                    return true;
+                } else if(args[0].equalsIgnoreCase("adventure") || args[0].equals("2")){
+                    p.setGameMode(GameMode.ADVENTURE);
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Adventure");
+                    return true;
+                } else if(args[0].equalsIgnoreCase("spectator") || args[0].equals("3")){
+                    p.setGameMode(GameMode.SPECTATOR);
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Spectator");
+                    return true;
+                } else { p.sendMessage(ChatColor.RED + "ERROR: Kein Gamemode!"); return false;}
+            }
+            if(args.length == 2){
+                if(!p.hasPermission("kimotools.gamemode.others")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+                p.sendMessage("WIP: Noch nicht implementiert!");
+                return true;
+            }
+        }
+
+
         return true;
     }
 }
