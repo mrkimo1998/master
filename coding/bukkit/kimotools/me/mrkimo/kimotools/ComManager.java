@@ -463,7 +463,7 @@ public class ComManager {
             }
         }
         //gamemode
-        if(cmd.getName().equalsIgnoreCase("gamemode") || cmd.getName().equalsIgnoreCase("gm")){
+	if(cmd.getName().equalsIgnoreCase("gamemode") || cmd.getName().equalsIgnoreCase("gm")){
             if(p==null){ System.out.println("[KimoTools] Not a console command!"); return true;}
             if(args.length == 0 || args.length > 2){p.sendMessage(ChatColor.RED + "ERROR: Es muss ein/zwei Argument/e angegeben werden!"); return false;}
             if(args.length == 1){
@@ -489,6 +489,31 @@ public class ComManager {
             if(args.length == 2){
                 if(!p.hasPermission("kimotools.gamemode.others")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
                 p.sendMessage("WIP: Noch nicht implementiert!");
+		for(Player curp : plg.getServer().getOnlinePlayers()){
+			if(curp.getName().equalsIgnoreCase(args[0])){
+			    if(args[0].equalsIgnoreCase("survival") || args[0].equals("0")){
+				    curp.setGameMode(GameMode.SURVIVAL);
+				    curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Survival");
+				    return true;
+				} else if(args[0].equalsIgnoreCase("creative") || args[0].equals("1")){
+				    curp.setGameMode(GameMode.CREATIVE);
+				    curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Creative");
+				    return true;
+				} else if(args[0].equalsIgnoreCase("adventure") || args[0].equals("2")){
+				    curp.setGameMode(GameMode.ADVENTURE);
+				    curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Adventure");
+				    return true;
+				} else if(args[0].equalsIgnoreCase("spectator") || args[0].equals("3")){
+				    curp.setGameMode(GameMode.SPECTATOR);
+				    curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Spectator");
+					return true;
+				} else { p.sendMessage(ChatColor.RED + "ERROR: Kein Gamemode!"); return false;} 
+					return true;
+                }
+                p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
+                return true;
+            }
+
                 return true;
             }
         }
