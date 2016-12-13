@@ -515,7 +515,6 @@ public class ComManager {
                 p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
                 return true;
             }
-
                 return true;
             }
         }
