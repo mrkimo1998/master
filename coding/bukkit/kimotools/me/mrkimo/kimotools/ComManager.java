@@ -36,7 +36,7 @@ public class ComManager {
     HomeManager homeMgr;
     JavaPlugin plg;
     final String path1 = "Configuration.serverteam";
-	final String path2 = "Configuration.owner";
+    final String path2 = "Configuration.owner";
     String serverteam;
     String owner;
 
@@ -470,45 +470,47 @@ public class ComManager {
                 if(!p.hasPermission("kimotools.gamemode")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
                 if(args[0].equalsIgnoreCase("survival") || args[0].equals("0")){
                     p.setGameMode(GameMode.SURVIVAL);
-                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Survival");
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Survival");
                     return true;
                 } else if(args[0].equalsIgnoreCase("creative") || args[0].equals("1")){
                     p.setGameMode(GameMode.CREATIVE);
-                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Creative");
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Creative");
                     return true;
                 } else if(args[0].equalsIgnoreCase("adventure") || args[0].equals("2")){
                     p.setGameMode(GameMode.ADVENTURE);
-                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Adventure");
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Adventure");
                     return true;
                 } else if(args[0].equalsIgnoreCase("spectator") || args[0].equals("3")){
                     p.setGameMode(GameMode.SPECTATOR);
-                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Spectator");
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Spectator");
                     return true;
                 } else { p.sendMessage(ChatColor.RED + "ERROR: Kein Gamemode!"); return false;}
             }
             if(args.length == 2){
                 if(!p.hasPermission("kimotools.gamemode.others")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
-                p.sendMessage("WIP: Noch nicht implementiert!");
 		for(Player curp : plg.getServer().getOnlinePlayers()){
-			if(curp.getName().equalsIgnoreCase(args[0])){
+			if(curp.getName().equalsIgnoreCase(args[1])){
 			    if(args[0].equalsIgnoreCase("survival") || args[0].equals("0")){
 				    curp.setGameMode(GameMode.SURVIVAL);
-				    curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Survival");
+				    curp.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Survival" + ChatColor.GREEN + " durch " + ChatColor.AQUA + p.getName());
+				    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode von " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " gesetzt zu " + ChatColor.AQUA + "Survival");
 				    return true;
 				} else if(args[0].equalsIgnoreCase("creative") || args[0].equals("1")){
 				    curp.setGameMode(GameMode.CREATIVE);
-				    curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Creative");
+				    curp.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Creative" + ChatColor.GREEN + " durch " + ChatColor.AQUA + p.getName());
+				    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode von " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " gesetzt zu " + ChatColor.AQUA + "Creative");
 				    return true;
 				} else if(args[0].equalsIgnoreCase("adventure") || args[0].equals("2")){
 				    curp.setGameMode(GameMode.ADVENTURE);
-				    curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Adventure");
+				    curp.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Adventure" + ChatColor.GREEN + " durch " + ChatColor.AQUA + p.getName());
+				    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode von " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " gesetzt zu " + ChatColor.AQUA + "Adventure");
 				    return true;
 				} else if(args[0].equalsIgnoreCase("spectator") || args[0].equals("3")){
 				    curp.setGameMode(GameMode.SPECTATOR);
-				    curp.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Spectator");
-					return true;
+				    curp.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode gesetzt zu " + ChatColor.AQUA + "Spectator" + ChatColor.GREEN + " durch " + ChatColor.AQUA + p.getName());
+				    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Gamemode von " + ChatColor.AQUA + curp.getName() + ChatColor.GREEN + " gesetzt zu " + ChatColor.AQUA + "Spectator");
+				    return true;
 				} else { p.sendMessage(ChatColor.RED + "ERROR: Kein Gamemode!"); return false;} 
-					return true;
                 }
                 p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
                 return true;
