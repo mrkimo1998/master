@@ -1,0 +1,42 @@
+/*Mod of https://github.com/ComplexMilkshake/StartPage*/
+#container{
+    position:           relative;
+    width:              720px;
+    height:             480px;
+    margin:             auto;
+    font-family:        'Raleway', sans-serif;
+    font-size:          20px;
+    top: 140px;
+}
+
+.links{
+    display:            inline;
+    float:              left;
+    width:              220px;
+    padding:            10px;
+}
+
+body{
+    background-color:   #1d1f21;
+}
+
+h3{
+    color:              #e0e0e0;
+}
+
+hr{
+    color:              #e0e0e0;
+}
+
+a{
+    color:              #e0e0e0;
+    text-decoration:    none;
+    display:            block;
+}
+
+input{
+    width:              100%;
+    box-sizing:         border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+}
