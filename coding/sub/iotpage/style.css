@@ -1,0 +1,32 @@
+#container{
+  font-family:        'Arial', sans-serif;
+  font-size:          20px;
+  position:           absolute;
+  top:                50%;
+  left:               50%;
+  width:              400px;
+  height:             4*56px;
+  margin-top:         -200px;
+  margin-left:        -200px;
+  text-align:         center;
+  /**background-color: #f0f; DEBUG**/
+  line-height:        56px;
+}
+div {
+  display:            block;
+}
+
+body{
+  background-color:   #1d1f21;
+}
+
+a{
+  color:              #e0e0e0;
+  text-decoration:    none;
+  display:            block;
+}
+
+a:hover{
+  color:              #1d1f21;
+  background-color:   #e0e0e0;
+}
