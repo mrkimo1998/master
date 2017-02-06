@@ -419,10 +419,10 @@ public class ComManager {
             if(!p.hasPermission("kimotools.spawn.set")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
             if(args.length == 0){
                 Location loc = p.getLocation();
-                p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Der Spawnpunkt für diese Welt wird an ihrem Standort gesetzt!");
+                p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Der Spawnpunkt für diese Welt wird an ihrem Standort gesetzt!");
                 if(loc.getWorld().setSpawnLocation((int) loc.getX(), (int) loc.getY(), (int) loc.getZ()) == true){
-                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Spawnpunkt erfolgreich gesetzt!");
-                    p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Spawn: " + ChatColor.AQUA + loc.toString());
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Spawnpunkt erfolgreich gesetzt!");
+                    p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Spawn: " + ChatColor.AQUA + loc.toString());
                     return true;
                 } else {
                     p.sendMessage(ChatColor.RED + "ERROR: Fehler!");
@@ -434,10 +434,10 @@ public class ComManager {
         if(cmd.getName().equalsIgnoreCase("spawn")){
             if(p==null){ System.out.println("[KimoTools] Not a console command!"); return true;}
             if(args.length != 0){p.sendMessage(ChatColor.RED +  "ERROR: Es darf kein Argument angegeben werden!"); return false; }
-            p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Beame zum Spawn...");
+            p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Beame zum Spawn...");
             p.teleport(p.getWorld().getSpawnLocation());
             p.playSound(p.getWorld().getSpawnLocation(), (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
-            p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + "Sie haben ihr Ziel erreicht!");
+            p.sendMessage(ChatColor.GOLD + "[KimoTools] " + ChatColor.GREEN + "Sie haben ihr Ziel erreicht!");
         }
         //whois
         if(cmd.getName().equalsIgnoreCase("whois")){
