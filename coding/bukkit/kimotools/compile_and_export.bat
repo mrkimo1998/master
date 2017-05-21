@@ -1,6 +1,6 @@
 @echo off
 echo Compiling...
-javac .\me\mrkimo\kimotools\*.java -classpath .\me\mrkimo\kimotools\bukkit-1.11-R0.1-SNAPSHOT-shaded.jar -Xlint:deprecation
+javac .\me\mrkimo\kimotools\*.java -classpath .\me\mrkimo\kimotools\bukkit-1.11.2-R0.1-SNAPSHOT-shaded.jar -Xlint:deprecation
 echo Packing...
 jar cvf .\KimoTools.jar .\me\mrkimo\kimotools\kimotools.class
 jar uvf .\KimoTools.jar .\me\mrkimo\kimotools\WarpManager.class
