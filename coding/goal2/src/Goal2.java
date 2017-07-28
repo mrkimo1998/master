@@ -30,10 +30,10 @@ import javax.swing.JOptionPane;
 
 public class Goal2 extends Application implements EventHandler<ActionEvent> {
 
-  public static final String VERSION = "0.2.0";
-  public static final String TITLE = "GOAL2";
-  public static final int HEIGHT = 350;
-  public static final int WIDTH = 600;
+  public static final String VERSION = "0.2.1";
+  public static final String TITLE = "GOAL2" + " : " + VERSION;
+  public static final int WIDTH = 820;
+  public static final int HEIGHT = 220;
 
   public static PrintStream out = System.out;
   public static InputStream in = System.in;
@@ -58,6 +58,8 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
 
   Label l_result;
   TextField t_result;
+
+  Label spacer;
 
   double goals = 0;
   double d_hPlays = 0;
@@ -92,31 +94,34 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
     t_h_bGoals = new TextField ();
     l_g_bGoals = new Label("Gegentore der Gastmannschaft:");
     t_g_bGoals = new TextField ();
-    l_result = new Label("Ergebnis:");
+    l_result = new Label("Erwartende Tore:");
     t_result = new TextField();
 
+    spacer = new Label("");
+
     t_result.setEditable(false);
-    
+
     layout.setAlignment(Pos.CENTER);
     layout.setHgap(5.0);
     layout.setVgap(5.0);
 
     layout.add(l_hPlays, 1 , 1);
     layout.add(t_hPlays, 2, 1);
-    layout.add(l_gPlays, 1, 2);
-    layout.add(t_gPlays, 2, 2);
-    layout.add(l_h_gGoals, 1, 3);
-    layout.add(t_h_gGoals, 2, 3);
-    layout.add(l_g_gGoals, 1, 4);
-    layout.add(t_g_gGoals, 2, 4);
-    layout.add(l_h_bGoals, 1, 5);
-    layout.add(t_h_bGoals, 2, 5);
-    layout.add(l_g_bGoals, 1, 6);
-    layout.add(t_g_bGoals, 2, 6);
-    layout.add(l_result, 1, 7);
-    layout.add(t_result, 2, 7);
-    layout.add(but_calc, 1, 8);
-    layout.add(but_close, 2, 8);
+    layout.add(l_h_gGoals, 1, 2);
+    layout.add(t_h_gGoals, 2, 2);
+    layout.add(l_h_bGoals, 1, 3);
+    layout.add(t_h_bGoals, 2, 3);
+    layout.add(l_gPlays, 3, 1);
+    layout.add(t_gPlays, 4, 1);
+    layout.add(l_g_gGoals, 3, 2);
+    layout.add(t_g_gGoals, 4, 2);
+    layout.add(l_g_bGoals, 3, 3);
+    layout.add(t_g_bGoals, 4, 3);
+    layout.add(spacer, 1,4);
+    layout.add(l_result, 2, 5);
+    layout.add(t_result, 3, 5);
+    layout.add(but_calc, 2, 6);
+    layout.add(but_close, 3, 6);
 
     Scene scene = new Scene(layout, WIDTH, HEIGHT);
     primaryStage.setScene(scene);
@@ -142,9 +147,10 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
       d_h_bGoals = Double.parseDouble(t_h_bGoals.getText());
       d_g_bGoals = Double.parseDouble(t_g_bGoals.getText());
 
-      goals = Math.round((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) + ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0));
+      //goals = Math.round((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) + ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) + ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0));
+      goals = ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) + ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0);
 
-      t_result.setText(String.valueOf(goals));
+      t_result.setText(String.format("%.2f", goals));
 
     } catch(IllegalArgumentException e) {
       out.println(e.toString());
