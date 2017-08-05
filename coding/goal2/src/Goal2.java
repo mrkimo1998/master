@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
 
 public class Goal2 extends Application implements EventHandler<ActionEvent> {
 
-  public static final String VERSION = "0.2.1";
+  public static final String VERSION = "0.2.2";
   public static final String TITLE = "GOAL2" + " : " + VERSION;
   public static final int WIDTH = 820;
   public static final int HEIGHT = 220;
@@ -60,6 +60,8 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
   TextField t_result;
 
   Label spacer;
+  Label l_indicator;
+  TextField t_indicator;
 
   double goals = 0;
   double d_hPlays = 0;
@@ -68,6 +70,7 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
   double d_g_gGoals = 0;
   double d_h_bGoals = 0;
   double d_g_bGoals = 0;
+  double d_indicator = 0;
 
   public static void main(String[] args) {
     launch(args);
@@ -98,6 +101,8 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
     t_result = new TextField();
 
     spacer = new Label("");
+    l_indicator = new Label("Indikator:");
+    t_indicator = new TextField("0.425");
 
     t_result.setEditable(false);
 
@@ -117,11 +122,13 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
     layout.add(t_g_gGoals, 4, 2);
     layout.add(l_g_bGoals, 3, 3);
     layout.add(t_g_bGoals, 4, 3);
-    layout.add(spacer, 1,4);
-    layout.add(l_result, 2, 5);
-    layout.add(t_result, 3, 5);
-    layout.add(but_calc, 2, 6);
-    layout.add(but_close, 3, 6);
+    layout.add(l_indicator, 1, 4);
+    layout.add(t_indicator, 2, 4);
+    layout.add(spacer, 1,5);
+    layout.add(l_result, 2, 6);
+    layout.add(t_result, 3, 6);
+    layout.add(but_calc, 2, 7);
+    layout.add(but_close, 3, 7);
 
     Scene scene = new Scene(layout, WIDTH, HEIGHT);
     primaryStage.setScene(scene);
@@ -146,9 +153,10 @@ public class Goal2 extends Application implements EventHandler<ActionEvent> {
       d_g_gGoals = Double.parseDouble(t_g_gGoals.getText());
       d_h_bGoals = Double.parseDouble(t_h_bGoals.getText());
       d_g_bGoals = Double.parseDouble(t_g_bGoals.getText());
+      d_indicator = Double.parseDouble(t_indicator.getText());
 
       //goals = Math.round((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) + ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) + ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) / ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0));
-      goals = ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) + ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) / 2.0);
+      goals = ((((d_h_gGoals / d_hPlays) + (d_g_gGoals / d_gPlays)) + ((d_h_bGoals / d_hPlays) + (d_g_bGoals / d_gPlays))) * d_indicator);
 
       t_result.setText(String.format("%.2f", goals));
 
