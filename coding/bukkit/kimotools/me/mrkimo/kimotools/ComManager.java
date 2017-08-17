@@ -455,9 +455,9 @@ public class ComManager {
                         p.sendMessage(ChatColor.GREEN + "Leben: " + ChatColor.AQUA + (curp.getHealth() / 2));
                         return true;
                     }
+                }
                 p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
                 return true;
-                }
             }
         }
         //gamemode
