@@ -17,6 +17,12 @@ import java.util.Arrays;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.Sound;
@@ -68,13 +74,49 @@ public class kimotools extends JavaPlugin implements Listener {
 	}
 
 	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
-		if(event.getPlayer().getName().equals(owner)){
-			event.setJoinMessage(ChatColor.RED + "Der Servereigentümer " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.RED + " hat sich eingeloggt!");
+	public void onJoin(PlayerJoinEvent ejoin) {
+		if(ejoin.getPlayer().getName().equals(owner)){
+			ejoin.setJoinMessage(ChatColor.RED + "Der Servereigentümer " + ChatColor.AQUA + ejoin.getPlayer().getName() + ChatColor.RED + " hat sich eingeloggt!");
 		} else {
-			event.setJoinMessage(ChatColor.GREEN + "Spieler " + ChatColor.AQUA + event.getPlayer().getName() + ChatColor.GREEN + " hat sich eingeloggt!");
+			ejoin.setJoinMessage(ChatColor.GREEN + "Spieler " + ChatColor.AQUA + ejoin.getPlayer().getName() + ChatColor.GREEN + " hat sich eingeloggt!");
 		}
 	}
+
+  @EventHandler
+	public void onSignChange(SignChangeEvent esignchange){
+		if(esignchange.getLine(0).toLowerCase().contains("warp")) {
+			if(esignchange.getPlayer().hasPermission("kimotools.signwarp.create")){
+				if(!esignchange.getLine(2).isEmpty() && (warpMgr.getWarp(esignchange.getLine(2)) != null)){
+					esignchange.setLine(0, ChatColor.GREEN + "[Warp]");
+					esignchange.setLine(1, "");
+					esignchange.setLine(3, "");
+					esignchange.getPlayer().sendMessage("Warpschild nach " + esignchange.getLine(2) + " wurde erstellt!");
+				}
+			}
+		}
+	}
+
+	@EventHandler
+	public void onSignClick(PlayerInteractEvent eint){
+		if(eint.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+			if(eint.getClickedBlock().getState() instanceof Sign){
+				Sign s = (Sign) eint.getClickedBlock().getState();
+				String[] slines = s.getLines();
+				if(slines[0].contains("[Warp]")){
+					if(!slines[2].isEmpty()){
+						Location warpLoc = warpMgr.getWarp(slines[2]);
+            if(warpLoc != null) {
+	            eint.getPlayer().sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Beame zu Warp: " + ChatColor.AQUA + slines[2]);
+	            eint.getPlayer().teleport(warpLoc);
+	            eint.getPlayer().playSound(warpLoc, (Sound) Sound.ENTITY_ENDERMEN_TELEPORT, (float) 1, (float) 1);
+	            eint.getPlayer().sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie haben ihr Ziel erreicht!");
+						}
+					}
+				}
+			}
+		}
+	}
+
 
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
 		cmdMgr.command(sender, cmd, cmdLabel, args);

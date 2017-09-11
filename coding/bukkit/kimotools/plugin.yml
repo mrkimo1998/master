@@ -101,3 +101,6 @@ commands:
           usage: /<command> <mode> [Player]
           permission: kimotools.gamemode
           permission: kimotools.gamemode.others
+permissions:
+     kimotools.signwarp.create:
+          description: permission for creating warpsigns

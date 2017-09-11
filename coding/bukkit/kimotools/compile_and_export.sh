@@ -8,5 +8,5 @@ jar uvf ./KimoTools.jar ./me/mrkimo/kimotools/HomeManager.class
 jar uvf ./KimoTools.jar ./me/mrkimo/kimotools/ComManager.class
 jar uvf ./KimoTools.jar ./plugin.yml
 echo Exporting to Testserver...
-sudo cp ./KimoTools.jar /srv/craftbukkit/plugins/KimoTools.jar
+sudo cp ./KimoTools.jar "/home/imo/Dokumente/4REAL MC Server/plugins/KimoTools.jar"
 echo DONE!
