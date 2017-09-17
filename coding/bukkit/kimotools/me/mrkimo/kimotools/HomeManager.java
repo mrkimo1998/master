@@ -17,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * Setzt, liest und entfernt Objekte vom Typ org.bukkit.Location.Location<br>
  * als HashMap in eine und aus einer Datei.
- * 
+ *
  * Modifiziert als HomeManager! Von MrKimo
  *
  * @author DeBukkIt,MrKimo
@@ -27,14 +27,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class HomeManager {
 
 	HashMap<String, String> map; // Still the same because a combined variable of the uuid (as string) and name is used
-	
+
 	String homeFileLocation;
-	
+
 	public HomeManager(String homeFileName, JavaPlugin plugin){
 		this.homeFileLocation = plugin.getDataFolder() + File.separator + homeFileName;
 		System.out.println("HomeFileLocation is " + homeFileLocation);
 	}
-	
+
 	/**
 	 * Returns the HomePoint with the specified name.
 	 * If there is no HomePoint with that name, null will be returned
@@ -53,14 +53,14 @@ public class HomeManager {
 			Location loc = new Location(Bukkit.getWorld(toker.nextToken()),
 										Double.valueOf(toker.nextToken()), Double.valueOf(toker.nextToken()), Double.valueOf(toker.nextToken()),
 										Float.valueOf(toker.nextToken()), Float.valueOf(toker.nextToken()));
-			
+
 			return loc;
-		
+
 		} catch(NullPointerException e){
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Removes the HomePoint with the specified name.<br>
 	 * If there is no HomePoint with that name, nothing will happen.
@@ -72,10 +72,10 @@ public class HomeManager {
 
 		//Combovar of Homename & UUID of Player
 		String uniqhome = uuid.toString() + name;
-		
+
 		//Remove HomePoint from Map
 		map.remove(uniqhome);
-		
+
 		//Save Map
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(homeFileLocation));
@@ -86,7 +86,7 @@ public class HomeManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Adds/Saves a new HomePoint
 	 * @param uuid  UUID of Player
@@ -103,14 +103,14 @@ public class HomeManager {
 
 		//Combovar of Homename & UUID of Player
 		String uniqhome = uuid.toString() + name;
-		
+
 		//Create new HomePoint and write it to Map
 		if(!map.containsKey(uniqhome)){
 			map.put(uniqhome, loc.getWorld().getName() + ";" + loc.getX() + ";" + loc.getY() + ";" + loc.getZ() + ";" + loc.getYaw() + ";" + loc.getPitch());
 		} else {
 			return 1;
-		}		
-		
+		}
+
 		//Save Map
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(homeFileLocation));
@@ -121,10 +121,10 @@ public class HomeManager {
 			e.printStackTrace();
 			return 2;
 		}
-		
+
 		return 0;
 	}
-	
+
 	/**
 	 * Returns a list of all existing HomePoints
 	 * @return Array of Objects (all of them Strings)
@@ -135,9 +135,9 @@ public class HomeManager {
 		loadMap();
 		return map.keySet().toArray();
 	}
-	
-	//--	PRIVATE METHOD TO LOAD THE MAP	
-	
+
+	//--	PRIVATE METHOD TO LOAD THE MAP
+
 	@SuppressWarnings("unchecked")
 	private void loadMap(){
 		//Datei anlegen, falls nicht vorhanden
@@ -146,20 +146,20 @@ public class HomeManager {
 			if(!file.exists()){
 				file.createNewFile();
 				System.out.println("Created new File.");
-				
+
 				//Leere Map schreiben
 				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(homeFileLocation));
 				oos.writeObject(new HashMap<String, String>());
 				oos.flush();
 				oos.close();
-				
+
 				System.out.println("Wrote empty HashMap.");
 			}
-			
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		//Map laden
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(homeFileLocation));
@@ -171,5 +171,5 @@ public class HomeManager {
 			e.printStackTrace();
 		}
 	}
-	
-} 
+
+}

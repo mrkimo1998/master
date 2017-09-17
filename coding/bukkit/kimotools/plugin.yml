@@ -101,6 +101,18 @@ commands:
           usage: /<command> <mode> [Player]
           permission: kimotools.gamemode
           permission: kimotools.gamemode.others
+     speed:
+          description: get and set fly walk speeds
+          usage: /<command> [Integer]
+          permission: kimotools.speed
+     vanish:
+          description: vansih
+          usage: /<command>
+          permission: kimotools.vanish
+     v:
+          description: vansih
+          usage: /<command>
+          permission: kimotools.vanish
 permissions:
      kimotools.signwarp.create:
           description: permission for creating warpsigns

@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.util.StringTokenizer;
 import java.util.UUID;
 import java.lang.Integer;
+import java.lang.Float;
 import java.lang.Byte;
 import java.lang.Short;
 import java.lang.Double;
@@ -30,7 +31,7 @@ import me.mrkimo.kimotools.WarpManager;
 import me.mrkimo.kimotools.HomeManager;
 import me.mrkimo.kimotools.kimotools;
 
-public class ComManager {
+public class ComManager{
 
     WarpManager warpMgr;
     HomeManager homeMgr;
@@ -49,8 +50,13 @@ public class ComManager {
     }
 
     public boolean command(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
-        Player p = null;
-	    if(sender instanceof Player){ p = (Player)sender; }
+      if (!(sender instanceof Player)) {
+        sender.sendMessage(ChatColor.GOLD + "##### [KimoTools] #####");
+        sender.sendMessage(ChatColor.RED + "Dies sind keine Konsolenbefehle -.-");
+        sender.sendMessage(ChatColor.RED + "+rep 4 Trying");
+        return true;
+      }
+      Player p = (Player) sender;
         UUID uuid = p.getUniqueId();
         double health;
 
@@ -459,6 +465,46 @@ public class ComManager {
                 p.sendMessage(ChatColor.RED + "ERROR: Spieler offline!");
                 return true;
             }
+        }
+        //speed //note: Default fly = 0.1 walk = 0.2
+        if(cmd.getName().equalsIgnoreCase("speed")){
+          if(!p.hasPermission("kimotools.speed")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+          if((args.length > 1)) { p.sendMessage(ChatColor.RED + "ERROR: Zu viele Argumente"); return true;}
+          if(args.length == 0 && p.isFlying()){
+            p.sendMessage(ChatColor.GOLD + "[KimoTools] \n" + ChatColor.GREEN + "Ihre Momentane Fluggeschwindigkeitseinstellung ist " + ChatColor.AQUA + p.getFlySpeed()*10);
+            return true;
+          }
+          if(args.length == 0 && !p.isFlying()){
+            p.sendMessage(ChatColor.GOLD + "[KimoTools] \n" + ChatColor.GREEN + "Ihre Momentane Laufgeschwindigkeitseinstellung ist " + ChatColor.AQUA + p.getWalkSpeed()*10);
+            return true;
+          }
+          if(args.length == 1){
+            if(args[0].equalsIgnoreCase("reset") && p.isFlying()){
+              p.setFlySpeed(0.1F);
+              p.sendMessage(ChatColor.GOLD + "[KimoTools] \n" + ChatColor.GREEN + "Ihre Momentane Fluggeschwindigkeitseinstellung wurde zurückgesetzt!");
+              return true;
+            }
+            if(args[0].equalsIgnoreCase("reset") && !p.isFlying()){
+              p.setWalkSpeed(0.2F);
+              p.sendMessage(ChatColor.GOLD + "[KimoTools] \n" + ChatColor.GREEN + "Ihre Momentane Laufgeschwindigkeitseinstellung wurde zurückgesetzt!");
+              return true;
+            }
+            try {
+                float speed = Float.parseFloat(args[0])/10;
+                if(p.isFlying()){
+                  p.setFlySpeed(speed);
+                  p.sendMessage(ChatColor.GOLD + "[KimoTools] \n" + ChatColor.GREEN + "Ihre Momentane Fluggeschwindigkeitseinstellung wurde auf " + ChatColor.AQUA + p.getFlySpeed()*10 + ChatColor.GREEN + " gesetzt!");
+                }
+                if(!p.isFlying()){
+                  p.setWalkSpeed(speed);
+                  p.sendMessage(ChatColor.GOLD + "[KimoTools] \n" + ChatColor.GREEN + "Ihre Momentane Laufgeschwindigkeitseinstellung wurde auf " + ChatColor.AQUA + p.getWalkSpeed()*10 + ChatColor.GREEN + " gesetzt!");
+                }
+                return true;
+            } catch(IllegalArgumentException e) {
+                p.sendMessage(ChatColor.RED + "ERROR: Die Zahl muss zwischen -10 und 10 liegen!");
+                return false;
+            }
+          }
         }
         //gamemode
 	      if(cmd.getName().equalsIgnoreCase("gamemode") || cmd.getName().equalsIgnoreCase("gm")){

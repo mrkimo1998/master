@@ -14,6 +14,8 @@ import java.lang.Byte;
 import java.lang.Short;
 import java.lang.Double;
 import java.util.Arrays;
+import java.util.ArrayList;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -31,6 +33,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 import org.bukkit.enchantments.Enchantment;
+import me.mrkimo.kimotools.ComManager;
 
 
 public class kimotools extends JavaPlugin implements Listener {
@@ -42,6 +45,8 @@ public class kimotools extends JavaPlugin implements Listener {
 	final String path2 = "Configuration.owner";
 	String serverteam = "TEAM";
 	String owner = "MrKimo";
+
+	private ArrayList<Player> vanished = new ArrayList<Player>();
 
 	@Override
 	public void onDisable() {
@@ -74,7 +79,14 @@ public class kimotools extends JavaPlugin implements Listener {
 	}
 
 	@EventHandler
+	public void onPlayerLeave(PlayerQuitEvent equit) {
+		vanished.remove(equit.getPlayer());
+	}
+	@EventHandler
 	public void onJoin(PlayerJoinEvent ejoin) {
+		for (Player p : vanished) {
+			ejoin.getPlayer().hidePlayer(p);
+		}
 		if(ejoin.getPlayer().getName().equals(owner)){
 			ejoin.setJoinMessage(ChatColor.RED + "Der Servereigentümer " + ChatColor.AQUA + ejoin.getPlayer().getName() + ChatColor.RED + " hat sich eingeloggt!");
 		} else {
@@ -92,6 +104,10 @@ public class kimotools extends JavaPlugin implements Listener {
 					esignchange.setLine(3, "");
 					esignchange.getPlayer().sendMessage("Warpschild nach " + esignchange.getLine(2) + " wurde erstellt!");
 				}
+			} else {
+				esignchange.getBlock().breakNaturally();
+				esignchange.getPlayer().playSound(esignchange.getPlayer().getLocation(), (Sound) Sound.BLOCK_WOOD_BREAK, (float) 1, (float) 1);
+				esignchange.getPlayer().sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!");
 			}
 		}
 	}
@@ -119,7 +135,31 @@ public class kimotools extends JavaPlugin implements Listener {
 
 
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
-		cmdMgr.command(sender, cmd, cmdLabel, args);
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(ChatColor.GOLD + "##### [KimoTools] #####");
+			sender.sendMessage(ChatColor.RED + "Dies sind keine Konsolenbefehle -.-");
+			sender.sendMessage(ChatColor.RED + "+rep 4 Trying");
+			return true;
+		}
+		Player p = (Player) sender;
+		//vanish from https://pastebin.com/1vuNUyCr
+		if (cmd.getName().equalsIgnoreCase("vanish") || cmd.getName().equalsIgnoreCase("v")) {
+			if(!p.hasPermission("kimotools.vanish")){ p.sendMessage(ChatColor.RED + "ERROR: Keine Berechtigung!"); return true;}
+			if (!vanished.contains(p)) {
+				for (Player curp : Bukkit.getServer().getOnlinePlayers()) { curp.hidePlayer(p); }
+				vanished.add(p);
+				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie sind nun unsichtbar!");
+				return true;
+			}
+			else {
+				for (Player pl : Bukkit.getServer().getOnlinePlayers()) { pl.showPlayer(p); }
+				vanished.remove(p);
+				p.sendMessage(ChatColor.GOLD + "[KimoTools]" + ChatColor.GREEN + " Sie sind wieder sichtbar!");
+				return true;
+			}
+		}
+
+		cmdMgr.command(p, cmd, cmdLabel, args);
 		return true;
 	}
 	public void loadConfig(){
